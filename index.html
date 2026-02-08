@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="https://raw.githubusercontent.com/sojijr/valentine-website/main/public/images/favicon.png">
+    <link rel="icon" href="public/images/favicon.png" type="image/x-icon" />  
+    <title>Happy Valentine's Day</title>
+    <link rel="stylesheet" href="public/style.css">
+  </head>
+  <body>
+    <canvas id="starfield"></canvas>
+    
+    <div id="canvasBlur"></div>
+    
+    <div id="valentineContainer">
+      <div id="valentineQuestion">Will you be my Valentine? ❤</div>
+      <div id="buttonContainer">
+        <button class="answerButton" id="yesButton">Yes! 💕</button>
+        <button class="answerButton" id="noButton">No... 😢</button>
+      </div>
+      <img id="pleadingImage" src="" alt="Please say yes" />
+    </div>
+
+    <div id="thankYouContainer">
+      <div id="bigHeart">❤️</div>
+      <div id="thankYouMessage">
+        Thank you so much, Mero Maya! 🥹<br>
+        <span id="subMessage">You just made me the happiest person alive!</span>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    
+    <script>
+      // Array of pleading images - Using more reliable sources
+      const images = [
+        "https://media1.tenor.com/m/2BrMVhEIsgIAAAAC/mocha-bear-kiss-bear-kiss.gif",
+        "https://media.tenor.com/LBEh1g_3QbUAAAAi/please-pretty-please.gif",
+        "https://media.tenor.com/FZclYdjw3m4AAAAi/bubu-dudu-sseeyall.gif",
+        "https://media1.tenor.com/m/9fscv__vkukAAAAC/dudu-bubu-dudu-bubu-love.gif",
+        "https://media1.tenor.com/m/lV1EF4I83MkAAAAC/bubu-dudu-twitter.gif",
+        "https://media.tenor.com/0XxZLMzjYV0AAAAi/dudu-crying-texting.gif",
+        "https://media1.tenor.com/m/3OJLuggNiuUAAAAC/bubu-dudu-crying.gif",
+        "https://media1.tenor.com/m/z0BGYS7UF0QAAAAC/tkthao219-bubududu.gif",
+        "https://media1.tenor.com/m/mGVF72-UxjwAAAAC/tkthao219-bubududu.gif",
+        "https://media1.tenor.com/m/s0ygwznGUsMAAAAC/tkthao219-bubududu.gif",
+        "https://media.tenor.com/ubjtdkQTtGUAAAAi/crying-twitter.gif"
+      ];
+      
+      let currentImageIndex = 0;
+      
+      // Yes button - triggers the email and shows thank you
+      document.getElementById("yesButton").addEventListener("click", function() {
+      
+        document.getElementById("noButton").disabled = true;
+        
+       
+              // Hide the valentine container
+              document.getElementById("valentineContainer").style.display = "none";
+              
+              // Show the thank you container with heart animation
+              const thankYouContainer = document.getElementById("thankYouContainer");
+              thankYouContainer.style.display = "block";
+              
+              // Trigger heart animation
+              setTimeout(() => {
+                document.getElementById("bigHeart").classList.add("beating");
+              }, 100);
+              
+         
+      });
+
+      // No button - makes Yes button bigger and shows pleading images
+      document.getElementById("noButton").addEventListener("click", function() {
+        var yesButton = document.getElementById("yesButton");
+        var currentFontSize = parseInt(window.getComputedStyle(yesButton).fontSize);
+        yesButton.style.fontSize = currentFontSize + 10 + "px";
+        
+        // Show pleading image
+        const pleadingImage = document.getElementById("pleadingImage");
+        pleadingImage.src = images[currentImageIndex];
+        pleadingImage.style.display = "block";
+        pleadingImage.classList.add("fadeIn");
+        
+        // Cycle through images
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        
+        // Make the question more pleading
+        var questions = [
+          "Are you sure? Please? 🥺",
+          "Pretty please? 🥺💕",
+          "I'll be so sad... 😭",
+          "Just one chance? 💔",
+          "My heart is breaking... 💔😢",
+          "What did I ever do to deserve this? 😭",
+          "Even my mom would say yes… 😔",
+          "Look at this face… how can you say no? 🥹",
+          "I believed in us… 💔",
+          "This is emotional damage… 😵‍💫",
+          "One tiny yes won't hurt… right? 👉👈",
+          "I'll remember this betrayal forever… 😢",
+          "You're really going to do me like this? 😭",
+          "My last hope… gone… 💔",
+          "I'm not crying, you're crying 😭",
+          "Say yes and I'll stop being dramatic (maybe) 😌",
+          "This is my villain origin story… 😈💔",
+          "Even the emoji is sad now… 🥺",
+          "I trusted you… 😔",
+          "Fine… I'll just sit here and suffer… 😭"
+        ];
+        
+        var questionDiv = document.getElementById("valentineQuestion");
+        var currentIndex = questions.indexOf(questionDiv.textContent);
+        
+        if (currentIndex < questions.length - 1) {
+          questionDiv.textContent = questions[currentIndex + 1];
+        } else if (currentIndex === -1) {
+          questionDiv.textContent = questions[0];
+        }
+      });
+    </script>
+  </body>
+</html>
