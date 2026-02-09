@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:image" content="https://raw.githubusercontent.com/sojijr/valentine-website/main/public/images/favicon.png">
     <link rel="icon" href="./images/favicon.png" type="image/x-icon" />  
-    <title>Happy Valentine's Day</title>
+    <title>Happy Promise Day 💍</title>
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
@@ -13,27 +13,76 @@
     
     <div id="canvasBlur"></div>
     
+    <!-- Music Control -->
+    <div id="musicControl">
+      <button id="musicToggle">🔊</button>
+    </div>
+    
+    <!-- Audio element for background music -->
+    <audio id="bgMusic" loop>
+      <source src="https://cdn.pixabay.com/audio/2022/05/13/audio_1db50838c5.mp3" type="audio/mpeg">
+    </audio>
+    
     <div id="valentineContainer">
-      <div id="valentineQuestion">Will you be my Valentine? ❤</div>
+      <div id="promiseRing">💍</div>
+      <div id="valentineQuestion">Will you make a promise with me? 💕</div>
       <div id="buttonContainer">
-        <button class="answerButton" id="yesButton">Yes! 💕</button>
-        <button class="answerButton" id="noButton">No... 😢</button>
+        <button class="answerButton" id="yesButton">Yes, I Promise! 💖</button>
+        <button class="answerButton" id="noButton">Not sure... 😢</button>
       </div>
       <img id="pleadingImage" src="" alt="Please say yes" />
     </div>
 
     <div id="thankYouContainer">
-      <div id="bigHeart">❤️</div>
+      <div id="promiseSymbol">
+        <div class="infinity">∞</div>
+        <div class="heart-overlay">💕</div>
+      </div>
       <div id="thankYouMessage">
-        Thank you so much, Mero Maya! 🥹<br>
-        <span id="subMessage">You just made me the happiest person alive!</span>
+        Thank you, Mero Mutu! 🥹<br>
+        <span id="subMessage">Our promise is sealed with love forever!</span>
+      </div>
+      <div id="promiseText">
+        <p class="promise-line">I promise to love you with all my heart 💖</p>
+        <p class="promise-line">I promise to stand by you through everything 🤝</p>
+        <p class="promise-line">I promise to cherish every moment with you ⏳</p>
+        <p class="promise-line">I promise to be your forever and always 💍</p>
       </div>
     </div>
 
     <script src="script.js"></script>
     
     <script>
-      // Array of pleading images - Using more reliable sources
+      // Music control
+      const music = document.getElementById("bgMusic");
+      const musicToggle = document.getElementById("musicToggle");
+      let isMusicPlaying = false;
+      
+      // Auto-play music (with user interaction)
+      document.addEventListener('click', function initMusic() {
+        if (!isMusicPlaying) {
+          music.play().then(() => {
+            isMusicPlaying = true;
+            musicToggle.textContent = "🔊";
+          }).catch(e => console.log("Audio playback failed:", e));
+        }
+        document.removeEventListener('click', initMusic);
+      }, { once: true });
+      
+      musicToggle.addEventListener("click", function(e) {
+        e.stopPropagation();
+        if (isMusicPlaying) {
+          music.pause();
+          musicToggle.textContent = "🔇";
+          isMusicPlaying = false;
+        } else {
+          music.play();
+          musicToggle.textContent = "🔊";
+          isMusicPlaying = true;
+        }
+      });
+      
+      // Array of pleading images
       const images = [
         "https://media1.tenor.com/m/2BrMVhEIsgIAAAAC/mocha-bear-kiss-bear-kiss.gif",
         "https://media.tenor.com/LBEh1g_3QbUAAAAi/please-pretty-please.gif",
@@ -50,25 +99,22 @@
       
       let currentImageIndex = 0;
       
-      // Yes button - triggers the email and shows thank you
+      // Yes button - shows thank you with promise animation
       document.getElementById("yesButton").addEventListener("click", function() {
-      
         document.getElementById("noButton").disabled = true;
         
-       
-              // Hide the valentine container
-              document.getElementById("valentineContainer").style.display = "none";
-              
-              // Show the thank you container with heart animation
-              const thankYouContainer = document.getElementById("thankYouContainer");
-              thankYouContainer.style.display = "block";
-              
-              // Trigger heart animation
-              setTimeout(() => {
-                document.getElementById("bigHeart").classList.add("beating");
-              }, 100);
-              
-         
+        // Hide the valentine container
+        document.getElementById("valentineContainer").style.display = "none";
+        
+        // Show the thank you container with animations
+        const thankYouContainer = document.getElementById("thankYouContainer");
+        thankYouContainer.style.display = "block";
+        
+        // Trigger animations
+        setTimeout(() => {
+          document.querySelector(".infinity").classList.add("spinning");
+          document.querySelector(".heart-overlay").classList.add("beating");
+        }, 100);
       });
 
       // No button - makes Yes button bigger and shows pleading images
@@ -88,26 +134,26 @@
         
         // Make the question more pleading
         var questions = [
-          "Are you sure? Please? 🥺",
-          "Pretty please? 🥺💕",
-          "I'll be so sad... 😭",
-          "Just one chance? 💔",
-          "My heart is breaking... 💔😢",
-          "What did I ever do to deserve this? 😭",
-          "Even my mom would say yes… 😔",
-          "Look at this face… how can you say no? 🥹",
-          "I believed in us… 💔",
-          "This is emotional damage… 😵‍💫",
-          "One tiny yes won't hurt… right? 👉👈",
-          "I'll remember this betrayal forever… 😢",
-          "You're really going to do me like this? 😭",
-          "My last hope… gone… 💔",
-          "I'm not crying, you're crying 😭",
-          "Say yes and I'll stop being dramatic (maybe) 😌",
-          "This is my villain origin story… 😈💔",
-          "Even the emoji is sad now… 🥺",
-          "I trusted you… 😔",
-          "Fine… I'll just sit here and suffer… 😭"
+          "Are you sure? Please promise me? 🥺",
+          "Pretty please? Just one promise? 🥺💕",
+          "I'll be so heartbroken... 😭",
+          "Just one tiny promise? 💔",
+          "My heart needs this promise... 💔😢",
+          "What about all we've been through? 😭",
+          "Even the stars would say yes… 😔",
+          "Look at this face… can you break this promise? 🥹",
+          "I believed in our promise… 💔",
+          "This is... this is too much… 😵‍💫",
+          "One promise won't hurt… right? 👉👈",
+          "I'll remember this moment forever… 😢",
+          "You're really going to do this to us? 😭",
+          "My last hope for a promise… gone… 💔",
+          "I'm not crying over a broken promise, you are 😭",
+          "Promise me and I'll stop being dramatic (maybe) 😌",
+          "This is my heartbreak story… 😈💔",
+          "Even the ring emoji is sad now… 💍😢",
+          "I trusted in our promise… 😔",
+          "Fine… I'll just sit here with a broken promise… 😭💔"
         ];
         
         var questionDiv = document.getElementById("valentineQuestion");
