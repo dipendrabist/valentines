@@ -3,7 +3,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var context = canvas.getContext("2d");
 var hearts = 400;
-var colorrange = [280, 300, 320, 340]; // Purple, pink, and rose hues for Promise Day
+var colorrange = [10, 30, 340, 350]; // Warm oranges, peaches, and soft pinks for Hug Day
 var heartArray = [];
 
 function getRandom(min, max) {
@@ -126,18 +126,18 @@ function drawInfinity(x, y, size, color, rotation) {
 }
 
 function drawBackground() {
-  // Create beautiful gradient background with Promise Day colors
+  // Create warm, cozy gradient background with Hug Day colors
   var gradient = context.createLinearGradient(0, 0, 0, canvas.height);
-  gradient.addColorStop(0, "#0f0420");     // Deep purple-black at top
-  gradient.addColorStop(0.3, "#1a0a2e");   // Deep purple
-  gradient.addColorStop(0.6, "#2d1545");   // Rich purple
-  gradient.addColorStop(0.8, "#3d1f5c");   // Purple-violet
-  gradient.addColorStop(1, "#4a2861");     // Deep violet at bottom
+  gradient.addColorStop(0, "#2d1810");     // Deep warm brown at top
+  gradient.addColorStop(0.3, "#3d2415");   // Warm chocolate
+  gradient.addColorStop(0.6, "#4d2f1a");   // Rich warm brown
+  gradient.addColorStop(0.8, "#5c3a24");   // Warm caramel
+  gradient.addColorStop(1, "#6b4530");     // Cozy amber at bottom
   
   context.fillStyle = gradient;
   context.fillRect(0, 0, canvas.width, canvas.height);
   
-  // Add mystical bokeh circles in the background
+  // Add warm bokeh circles in the background
   for (let i = 0; i < 25; i++) {
     var bokehGradient = context.createRadialGradient(
       Math.random() * canvas.width,
@@ -150,20 +150,20 @@ function drawBackground() {
     
     var hue = colorrange[getRandom(0, colorrange.length - 1)];
     bokehGradient.addColorStop(0, `hsla(${hue}, 80%, 70%, ${Math.random() * 0.04})`);
-    bokehGradient.addColorStop(1, "rgba(255, 182, 255, 0)");
+    bokehGradient.addColorStop(1, "rgba(255, 200, 150, 0)");
     
     context.fillStyle = bokehGradient;
     context.fillRect(0, 0, canvas.width, canvas.height);
   }
   
-  // Add some sparkles
+  // Add some warm sparkles
   if (frameNumber % 3 === 0) {
     for (let i = 0; i < 5; i++) {
       var sparkleX = Math.random() * canvas.width;
       var sparkleY = Math.random() * canvas.height;
       var sparkleSize = Math.random() * 2 + 1;
       
-      context.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.8})`;
+      context.fillStyle = `rgba(255, 220, 180, ${Math.random() * 0.8})`;
       context.beginPath();
       context.arc(sparkleX, sparkleY, sparkleSize, 0, Math.PI * 2);
       context.fill();
@@ -258,29 +258,29 @@ function drawText() {
   context.font = fontSize + "px Georgia, serif";
   context.textAlign = "center";
   
-  // Enhanced glow effect for Promise Day
-  context.shadowColor = "rgba(200, 150, 255, 1)";
+  // Enhanced glow effect for Hug Day
+  context.shadowColor = "rgba(255, 180, 120, 1)";
   context.shadowBlur = 20;
   context.shadowOffsetX = 0;
   context.shadowOffsetY = 0;
 
   // First message - Frames 0-240 (4 seconds)
   if(frameNumber < 120){
-    context.fillStyle = `rgba(255, 240, 255, ${opacity})`;
+    context.fillStyle = `rgba(255, 240, 230, ${opacity})`;
     if (window.innerWidth < 600) {
-      drawTextWithLineBreaks(["On this Promise Day,", "I want to make the most sacred vow to you"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
+      drawTextWithLineBreaks(["On this Hug Day,", "I want to wrap you in the warmest embrace"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
     } else {
-      context.fillText("On this Promise Day, I want to make the most sacred vow to you", canvas.width/2, canvas.height/2);
+      context.fillText("On this Hug Day, I want to wrap you in the warmest embrace", canvas.width/2, canvas.height/2);
     }
     opacity = opacity + 0.0167;
   }
   
   if(frameNumber >= 120 && frameNumber < 240){
-    context.fillStyle = `rgba(255, 240, 255, ${opacity})`;
+    context.fillStyle = `rgba(255, 240, 230, ${opacity})`;
     if (window.innerWidth < 600) {
-      drawTextWithLineBreaks(["On this Promise Day,", "I want to make the most sacred vow to you"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
+      drawTextWithLineBreaks(["On this Hug Day,", "I want to wrap you in the warmest embrace"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
     } else {
-      context.fillText("On this Promise Day, I want to make the most sacred vow to you", canvas.width/2, canvas.height/2);
+      context.fillText("On this Hug Day, I want to wrap you in the warmest embrace", canvas.width/2, canvas.height/2);
     }
     opacity = opacity - 0.0167;
   }
@@ -291,21 +291,21 @@ function drawText() {
   
   // Second message - Frames 240-480
   if(frameNumber > 240 && frameNumber < 360){
-    context.fillStyle = `rgba(255, 240, 255, ${opacity})`;
+    context.fillStyle = `rgba(255, 240, 230, ${opacity})`;
     if (window.innerWidth < 600) {
-      drawTextWithLineBreaks(["I promise to be your safe haven,", "your shelter in every storm"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
+      drawTextWithLineBreaks(["Your hugs are my safe place,", "where all my worries fade away"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
     } else {
-      context.fillText("I promise to be your safe haven, your shelter in every storm", canvas.width/2, canvas.height/2);
+      context.fillText("Your hugs are my safe place, where all my worries fade away", canvas.width/2, canvas.height/2);
     }
     opacity = opacity + 0.0167;
   }
   
   if(frameNumber >= 360 && frameNumber < 480){
-    context.fillStyle = `rgba(255, 240, 255, ${opacity})`;
+    context.fillStyle = `rgba(255, 240, 230, ${opacity})`;
     if (window.innerWidth < 600) {
-      drawTextWithLineBreaks(["I promise to be your safe haven,", "your shelter in every storm"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
+      drawTextWithLineBreaks(["Your hugs are my safe place,", "where all my worries fade away"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
     } else {
-      context.fillText("I promise to be your safe haven, your shelter in every storm", canvas.width/2, canvas.height/2);
+      context.fillText("Your hugs are my safe place, where all my worries fade away", canvas.width/2, canvas.height/2);
     }
     opacity = opacity - 0.0167;
   }
@@ -316,21 +316,21 @@ function drawText() {
   
   // Third message - Frames 480-720
   if(frameNumber > 480 && frameNumber < 600){
-    context.fillStyle = `rgba(255, 240, 255, ${opacity})`;
+    context.fillStyle = `rgba(255, 240, 230, ${opacity})`;
     if (window.innerWidth < 600) {
-      drawTextWithLineBreaks(["I promise to choose you,", "every single day, for the rest of my life"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
+      drawTextWithLineBreaks(["In your arms, time stands still", "and the world feels perfect"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
     } else {
-      context.fillText("I promise to choose you, every single day, for the rest of my life", canvas.width/2, canvas.height/2);
+      context.fillText("In your arms, time stands still and the world feels perfect", canvas.width/2, canvas.height/2);
     }
     opacity = opacity + 0.0167;
   }
   
   if(frameNumber >= 600 && frameNumber < 720){
-    context.fillStyle = `rgba(255, 240, 255, ${opacity})`;
+    context.fillStyle = `rgba(255, 240, 230, ${opacity})`;
     if (window.innerWidth < 600) {
-      drawTextWithLineBreaks(["I promise to choose you,", "every single day, for the rest of my life"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
+      drawTextWithLineBreaks(["In your arms, time stands still", "and the world feels perfect"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
     } else {
-      context.fillText("I promise to choose you, every single day, for the rest of my life", canvas.width/2, canvas.height/2);
+      context.fillText("In your arms, time stands still and the world feels perfect", canvas.width/2, canvas.height/2);
     }
     opacity = opacity - 0.0167;
   }
@@ -341,21 +341,21 @@ function drawText() {
   
   // Fourth message - Frames 720-960
   if(frameNumber > 720 && frameNumber < 840){
-    context.fillStyle = `rgba(255, 240, 255, ${opacity})`;
+    context.fillStyle = `rgba(255, 240, 230, ${opacity})`;
     if (window.innerWidth < 600) {
-      drawTextWithLineBreaks(["I promise to laugh with you in joy", "and cry with you in sorrow"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
+      drawTextWithLineBreaks(["Every hug from you feels like", "coming home to where I belong"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
     } else {
-      context.fillText("I promise to laugh with you in joy and cry with you in sorrow", canvas.width/2, canvas.height/2);
+      context.fillText("Every hug from you feels like coming home to where I belong", canvas.width/2, canvas.height/2);
     }
     opacity = opacity + 0.0167;
   }
   
   if(frameNumber >= 840 && frameNumber < 960){
-    context.fillStyle = `rgba(255, 240, 255, ${opacity})`;
+    context.fillStyle = `rgba(255, 240, 230, ${opacity})`;
     if (window.innerWidth < 600) {
-      drawTextWithLineBreaks(["I promise to laugh with you in joy", "and cry with you in sorrow"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
+      drawTextWithLineBreaks(["Every hug from you feels like", "coming home to where I belong"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
     } else {
-      context.fillText("I promise to laugh with you in joy and cry with you in sorrow", canvas.width/2, canvas.height/2);
+      context.fillText("Every hug from you feels like coming home to where I belong", canvas.width/2, canvas.height/2);
     }
     opacity = opacity - 0.0167;
   }
@@ -366,21 +366,21 @@ function drawText() {
   
   // Fifth message - Frames 960-1200
   if(frameNumber > 960 && frameNumber < 1080){
-    context.fillStyle = `rgba(255, 240, 255, ${opacity})`;
+    context.fillStyle = `rgba(255, 240, 230, ${opacity})`;
     if (window.innerWidth < 600) {
-      drawTextWithLineBreaks(["I promise to build a lifetime of memories with you,", "filled with endless love and devotion"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
+      drawTextWithLineBreaks(["Your embrace is my favorite place,", "my comfort, my joy, my everything"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
     } else {
-      context.fillText("I promise to build a lifetime of memories with you, filled with endless love and devotion", canvas.width/2, canvas.height/2);
+      context.fillText("Your embrace is my favorite place, my comfort, my joy, my everything", canvas.width/2, canvas.height/2);
     }
     opacity = opacity + 0.0167;
   }
   
   if(frameNumber >= 1080 && frameNumber < 1200){
-    context.fillStyle = `rgba(255, 240, 255, ${opacity})`;
+    context.fillStyle = `rgba(255, 240, 230, ${opacity})`;
     if (window.innerWidth < 600) {
-      drawTextWithLineBreaks(["I promise to build a lifetime of memories with you,", "filled with endless love and devotion"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
+      drawTextWithLineBreaks(["Your embrace is my favorite place,", "my comfort, my joy, my everything"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
     } else {
-      context.fillText("I promise to build a lifetime of memories with you, filled with endless love and devotion", canvas.width/2, canvas.height/2);
+      context.fillText("Your embrace is my favorite place, my comfort, my joy, my everything", canvas.width/2, canvas.height/2);
     }
     opacity = opacity - 0.0167;
   }
@@ -391,11 +391,11 @@ function drawText() {
   
   // Main declaration - Frames 1200+
   if(frameNumber > 1200 && frameNumber < 99999){
-    context.fillStyle = `rgba(255, 240, 255, ${opacity})`;
+    context.fillStyle = `rgba(255, 240, 230, ${opacity})`;
     if (window.innerWidth < 600) {
-      drawTextWithLineBreaks(["Mero Ghuntudo, these promises are written", "in the stars and sealed in my heart"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
+      drawTextWithLineBreaks(["Mero Ghuntudo, let me hold you close", "and never let go"], canvas.width / 2, canvas.height / 2, fontSize, lineHeight);
     } else {
-      context.fillText("Mero Ghuntudo, these promises are written in the stars and sealed in my heart", canvas.width/2, canvas.height/2);
+      context.fillText("Mero Ghuntudo, let me hold you close and never let go", canvas.width/2, canvas.height/2);
     }
     if(opacity < 1) {
       opacity = opacity + 0.0167;
@@ -404,11 +404,11 @@ function drawText() {
   
   // Second line appears at frame 1320
   if(frameNumber >= 1320 && frameNumber < 99999){
-    context.fillStyle = `rgba(255, 240, 255, ${secondOpacity})`;
+    context.fillStyle = `rgba(255, 240, 230, ${secondOpacity})`;
     if (window.innerWidth < 600) {
-      drawTextWithLineBreaks(["With this promise, I give you my forever", "and pledge my eternal love to you"], canvas.width / 2, (canvas.height/2 + 60), fontSize, lineHeight);
+      drawTextWithLineBreaks(["In your arms, I find peace, warmth,", "and a love that feels like forever"], canvas.width / 2, (canvas.height/2 + 60), fontSize, lineHeight);
     } else {
-      context.fillText("With this promise, I give you my forever and pledge my eternal love to you", canvas.width/2, (canvas.height/2 + 50));
+      context.fillText("In your arms, I find peace, warmth, and a love that feels like forever", canvas.width/2, (canvas.height/2 + 50));
     }
     if(secondOpacity < 1) {
       secondOpacity = secondOpacity + 0.0167;
@@ -417,8 +417,8 @@ function drawText() {
   
   // Buttons appear at frame 1440
   if(frameNumber >= 1440 && frameNumber < 99999){
-    context.fillStyle = `rgba(255, 240, 255, ${thirdOpacity})`;
-    context.fillText("Will you accept my promise? Happy Promise Day, Mero mutu 💍", canvas.width/2, (canvas.height/2 + 120));
+    context.fillStyle = `rgba(255, 240, 230, ${thirdOpacity})`;
+    context.fillText("Can I wrap you in the warmest hug? Happy Hug Day, Mero Maya 🤗", canvas.width/2, (canvas.height/2 + 120));
     if(thirdOpacity < 1) {
       thirdOpacity = thirdOpacity + 0.0167;
     }

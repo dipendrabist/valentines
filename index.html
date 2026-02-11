@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:image" content="https://raw.githubusercontent.com/sojijr/valentine-website/main/public/images/favicon.png">
     <link rel="icon" href="./images/favicon.png" type="image/x-icon" />  
-    <title>Happy Promise Day 💍</title>
+    <title>Happy Hug Day 🤗</title>
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
@@ -24,30 +24,35 @@
     </audio>
     
     <div id="valentineContainer">
-      <div id="promiseRing">💍</div>
-      <div id="valentineQuestion">Will you make a promise with me? 💕</div>
+      <div id="promiseRing">🤗</div>
+      <div id="valentineQuestion">Can I give you a warm hug? 🫂</div>
       <div id="buttonContainer">
-        <button class="answerButton" id="yesButton">Yes, I Promise! 💖</button>
-        <button class="answerButton" id="noButton">Not sure... 😢</button>
+        <button class="answerButton" id="yesButton">Yes, Hug Me! 🤗💕</button>
+        <button class="answerButton" id="noButton">No hugs... 😢</button>
       </div>
       <img id="pleadingImage" src="" alt="Please say yes" />
     </div>
 
     <div id="thankYouContainer">
       <div id="promiseSymbol">
-        <div class="infinity">∞</div>
+        <div class="infinity">🤗</div>
         <div class="heart-overlay">💕</div>
       </div>
       <div id="thankYouMessage">
-        Thank you, Mero Mutu! 🥹<br>
-        <span id="subMessage">Our promise is sealed with love forever!</span>
+        *The warmest hug for you, Mero Maya!* 🥹🫂<br>
+        <span id="subMessage">You just filled my heart with so much warmth!</span>
       </div>
       <div id="promiseText">
-        <p class="promise-line">I promise to love you with all my heart 💖</p>
-        <p class="promise-line">I promise to stand by you through everything 🤝</p>
-        <p class="promise-line">I promise to cherish every moment with you ⏳</p>
-        <p class="promise-line">I promise to be your forever and always 💍</p>
+        <p class="promise-line">In your arms, I find my home 🏠💕</p>
+        <p class="promise-line">Your hugs heal every wound in my heart 💖</p>
+        <p class="promise-line">No distance can keep me from hugging you 🌍🤗</p>
+        <p class="promise-line">Forever wrapped in your love and warmth 🫂✨</p>
       </div>
+    </div>
+
+    <!-- Budu Character at Bottom -->
+    <div id="buduContainer">
+      <img src="./images/bidu.png" alt="Budu" id="buduCharacter">
     </div>
 
     <script src="script.js"></script>
@@ -134,26 +139,26 @@
         
         // Make the question more pleading
         var questions = [
-          "Are you sure? Please promise me? 🥺",
-          "Pretty please? Just one promise? 🥺💕",
-          "I'll be so heartbroken... 😭",
-          "Just one tiny promise? 💔",
-          "My heart needs this promise... 💔😢",
-          "What about all we've been through? 😭",
-          "Even the stars would say yes… 😔",
-          "Look at this face… can you break this promise? 🥹",
-          "I believed in our promise… 💔",
-          "This is... this is too much… 😵‍💫",
-          "One promise won't hurt… right? 👉👈",
-          "I'll remember this moment forever… 😢",
-          "You're really going to do this to us? 😭",
-          "My last hope for a promise… gone… 💔",
-          "I'm not crying over a broken promise, you are 😭",
-          "Promise me and I'll stop being dramatic (maybe) 😌",
-          "This is my heartbreak story… 😈💔",
-          "Even the ring emoji is sad now… 💍😢",
-          "I trusted in our promise… 😔",
-          "Fine… I'll just sit here with a broken promise… 😭💔"
+          "Are you sure? Just one hug? 🥺",
+          "Pretty please? I really need a hug 🥺💕",
+          "I'll be so sad without your hug... 😭",
+          "Just one tiny hug? 🫂",
+          "My arms feel so empty... 💔😢",
+          "What did I do to not deserve a hug? 😭",
+          "Even strangers hug… 😔",
+          "Look at this face… how can you deny a hug? 🥹",
+          "I need your warmth… 💔",
+          "This is hug deprivation… 😵‍💫",
+          "One little hug won't hurt… right? 👉👈",
+          "I'll remember this hug-less day forever… 😢",
+          "You're really going to leave me un-hugged? 😭",
+          "My last hope for warmth… gone… 💔",
+          "I'm not crying for a hug, you're crying 😭",
+          "Hug me and I'll stop being dramatic (maybe) 😌",
+          "This is my cold and lonely origin story… 😈💔",
+          "Even the hug emoji is sad now… 🤗😢",
+          "I trusted you for hugs… 😔",
+          "Fine… I'll just sit here and freeze… 😭🥶"
         ];
         
         var questionDiv = document.getElementById("valentineQuestion");

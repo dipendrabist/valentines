@@ -3,7 +3,7 @@ body {
   padding: 0;
   overflow: hidden;
   font-family: 'Georgia', serif;
-  background: #0f0420;
+  background: #2d1810;
 }
 
 #starfield {
@@ -34,13 +34,13 @@ body {
   cursor: pointer;
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(200, 150, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 180, 120, 0.3);
 }
 
 #musicToggle:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(200, 150, 255, 0.5);
+  box-shadow: 0 6px 20px rgba(255, 150, 100, 0.5);
 }
 
 #musicToggle:active {
@@ -88,15 +88,15 @@ body {
   }
 }
 
-/* Promise Ring Animation */
+/* Hug Emoji Animation */
 #promiseRing {
   font-size: 80px;
   margin-bottom: 20px;
-  animation: ringFloat 3s ease-in-out infinite, ringGlow 2s ease-in-out infinite;
-  filter: drop-shadow(0 0 20px rgba(200, 150, 255, 0.8));
+  animation: hugFloat 3s ease-in-out infinite, hugGlow 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(255, 180, 120, 0.8));
 }
 
-@keyframes ringFloat {
+@keyframes hugFloat {
   0%, 100% {
     transform: translateY(0px) rotate(0deg);
   }
@@ -105,21 +105,21 @@ body {
   }
 }
 
-@keyframes ringGlow {
+@keyframes hugGlow {
   0%, 100% {
-    filter: drop-shadow(0 0 20px rgba(200, 150, 255, 0.8));
+    filter: drop-shadow(0 0 20px rgba(255, 180, 120, 0.8));
   }
   50% {
-    filter: drop-shadow(0 0 35px rgba(255, 150, 255, 1));
+    filter: drop-shadow(0 0 35px rgba(255, 150, 100, 1));
   }
 }
 
 #valentineQuestion {
   font-size: 36px;
   color: #fff;
-  text-shadow: 0 0 25px rgba(200, 150, 255, 1),
-               0 0 40px rgba(255, 105, 255, 0.8),
-               0 0 60px rgba(200, 150, 255, 0.5);
+  text-shadow: 0 0 25px rgba(255, 180, 120, 1),
+               0 0 40px rgba(255, 140, 100, 0.8),
+               0 0 60px rgba(255, 180, 120, 0.5);
   margin-bottom: 35px;
   font-weight: bold;
   animation: questionPulse 2.5s ease-in-out infinite;
@@ -129,15 +129,15 @@ body {
 @keyframes questionPulse {
   0%, 100% {
     transform: scale(1);
-    text-shadow: 0 0 25px rgba(200, 150, 255, 1),
-                 0 0 40px rgba(255, 105, 255, 0.8),
-                 0 0 60px rgba(200, 150, 255, 0.5);
+    text-shadow: 0 0 25px rgba(255, 180, 120, 1),
+                 0 0 40px rgba(255, 140, 100, 0.8),
+                 0 0 60px rgba(255, 180, 120, 0.5);
   }
   50% {
     transform: scale(1.05);
-    text-shadow: 0 0 35px rgba(200, 150, 255, 1),
-                 0 0 50px rgba(255, 105, 255, 1),
-                 0 0 80px rgba(200, 150, 255, 0.8);
+    text-shadow: 0 0 35px rgba(255, 180, 120, 1),
+                 0 0 50px rgba(255, 140, 100, 1),
+                 0 0 80px rgba(255, 180, 120, 0.8);
   }
 }
 
@@ -183,19 +183,19 @@ body {
 }
 
 #yesButton {
-  background: linear-gradient(135deg, #d946ef 0%, #a855f7 50%, #ec4899 100%);
+  background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 50%, #f44336 100%);
   color: white;
   transition: font-size 0.3s ease, transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  box-shadow: 0 6px 25px rgba(217, 70, 239, 0.5),
-              0 0 40px rgba(168, 85, 247, 0.3);
+  box-shadow: 0 6px 25px rgba(255, 140, 66, 0.5),
+              0 0 40px rgba(255, 107, 53, 0.3);
   position: relative;
   z-index: 1;
 }
 
 #yesButton:hover {
   transform: scale(1.15) rotate(-2deg);
-  box-shadow: 0 10px 35px rgba(217, 70, 239, 0.7),
-              0 0 60px rgba(168, 85, 247, 0.5);
+  box-shadow: 0 10px 35px rgba(255, 140, 66, 0.7),
+              0 0 60px rgba(255, 107, 53, 0.5);
 }
 
 #yesButton:active {
@@ -208,15 +208,15 @@ body {
 }
 
 #noButton {
-  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  background: linear-gradient(135deg, #8b7355 0%, #6d5d4b 100%);
   color: white;
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 6px 20px rgba(139, 115, 85, 0.4);
 }
 
 #noButton:hover {
   transform: scale(1.1) rotate(2deg);
-  background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
-  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.6);
+  background: linear-gradient(135deg, #6d5d4b 0%, #5c4d3d 100%);
+  box-shadow: 0 8px 25px rgba(139, 115, 85, 0.6);
 }
 
 #noButton:active {
@@ -235,8 +235,8 @@ body {
   max-height: 320px;
   margin: 25px auto;
   border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(200, 150, 255, 0.5),
-              0 0 60px rgba(255, 105, 255, 0.3);
+  box-shadow: 0 15px 40px rgba(255, 180, 120, 0.5),
+              0 0 60px rgba(255, 140, 100, 0.3);
   animation: imageFadeIn 0.6s ease;
 }
 
@@ -286,9 +286,9 @@ body {
 
 .infinity {
   font-size: 160px;
-  color: #d946ef;
-  text-shadow: 0 0 40px rgba(217, 70, 239, 1),
-               0 0 60px rgba(168, 85, 247, 0.8);
+  color: #ff8c42;
+  text-shadow: 0 0 40px rgba(255, 140, 66, 1),
+               0 0 60px rgba(255, 107, 53, 0.8);
   animation: infinityAppear 1.5s ease;
   position: absolute;
   font-weight: bold;
@@ -360,9 +360,9 @@ body {
 #thankYouMessage {
   font-size: 40px;
   color: #fff;
-  text-shadow: 0 0 30px rgba(200, 150, 255, 1),
-               0 0 50px rgba(255, 105, 255, 0.8),
-               0 0 70px rgba(200, 150, 255, 0.6);
+  text-shadow: 0 0 30px rgba(255, 180, 120, 1),
+               0 0 50px rgba(255, 140, 100, 0.8),
+               0 0 70px rgba(255, 180, 120, 0.6);
   margin-top: 25px;
   font-weight: bold;
   animation: messageFadeInUp 1.5s ease 0.8s backwards;
@@ -374,7 +374,7 @@ body {
   font-size: 26px;
   margin-top: 18px;
   animation: messageFadeInUp 1.5s ease 1.2s backwards;
-  color: #ffd6ff;
+  color: #ffe4cc;
 }
 
 @keyframes messageFadeInUp {
@@ -396,8 +396,8 @@ body {
 
 .promise-line {
   font-size: 22px;
-  color: #ffd6ff;
-  text-shadow: 0 0 15px rgba(200, 150, 255, 0.6);
+  color: #ffe4cc;
+  text-shadow: 0 0 15px rgba(255, 180, 120, 0.6);
   margin: 15px 0;
   opacity: 0;
   animation: promiseLineFadeIn 1s ease forwards;
@@ -445,6 +445,41 @@ body {
   100% {
     transform: translateY(-100vh) rotate(360deg);
     opacity: 0;
+  }
+}
+
+/* Budu Character at Bottom */
+#buduContainer {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  animation: buduBounce 2s ease-in-out infinite;
+}
+
+#buduCharacter {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  box-shadow: 0 10px 30px rgba(255, 180, 120, 0.4),
+              0 0 40px rgba(255, 140, 100, 0.3);
+  filter: drop-shadow(0 5px 15px rgba(255, 180, 120, 0.5));
+  transition: transform 0.3s ease;
+}
+
+#buduCharacter:hover {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 15px 40px rgba(255, 180, 120, 0.6),
+              0 0 50px rgba(255, 140, 100, 0.5);
+}
+
+@keyframes buduBounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0px);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px);
   }
 }
 
@@ -502,6 +537,11 @@ body {
     width: 45px;
     height: 45px;
     font-size: 20px;
+  }
+  
+  #buduCharacter {
+    width: 80px;
+    height: 80px;
   }
 }
 
