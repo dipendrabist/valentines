@@ -409,6 +409,11 @@ body {
               inset 0 0 50px rgba(255, 255, 255, 0.1);
   border: 3px solid rgba(255, 255, 255, 0.3);
 }
+  #valentineContainer,
+#thankYouContainer {
+  width: min(92vw, 500px);
+  box-sizing: border-box;
+}
 
 @keyframes thankYouFadeIn {
   0% {
