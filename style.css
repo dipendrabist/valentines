@@ -16,6 +16,42 @@ body {
   transition: filter 0.5s ease;
 }
 
+/* Floating particles container */
+#floatingParticles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.celebration-particle {
+  position: absolute;
+  font-size: 30px;
+  animation: floatUpCelebration 4s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes floatUpCelebration {
+  0% {
+    transform: translateY(100vh) rotate(0deg) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(720deg) scale(1.5);
+    opacity: 0;
+  }
+}
+
 /* Music Control Button */
 #musicControl {
   position: fixed;
@@ -25,22 +61,47 @@ body {
 }
 
 #musicToggle {
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.4);
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
+  width: 55px;
+  height: 55px;
+  font-size: 26px;
   cursor: pointer;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(255, 180, 120, 0.3);
+  backdrop-filter: blur(15px);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  box-shadow: 0 4px 20px rgba(255, 180, 120, 0.4),
+              0 0 30px rgba(255, 150, 100, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+#musicToggle::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: rotate(45deg);
+  animation: shimmerSpin 3s linear infinite;
+}
+
+@keyframes shimmerSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 #musicToggle:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(255, 150, 100, 0.5);
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.15) rotate(10deg);
+  box-shadow: 0 6px 30px rgba(255, 150, 100, 0.6),
+              0 0 50px rgba(255, 180, 120, 0.4);
 }
 
 #musicToggle:active {
@@ -57,13 +118,13 @@ body {
   background: rgba(0, 0, 0, 0);
   backdrop-filter: blur(0px);
   z-index: 2;
-  transition: backdrop-filter 0.5s ease, background 0.5s ease;
+  transition: backdrop-filter 0.8s ease, background 0.8s ease;
   pointer-events: none;
 }
 
 #canvasBlur.active {
-  backdrop-filter: blur(12px);
-  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(15px) brightness(0.7);
+  background: rgba(0, 0, 0, 0.5);
 }
 
 #valentineContainer {
@@ -74,94 +135,142 @@ body {
   z-index: 1000;
   text-align: center;
   display: none;
-  animation: containerFadeIn 1s ease;
+  animation: containerFadeIn 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 50px 40px;
+  border-radius: 30px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+              0 0 80px rgba(255, 180, 120, 0.3),
+              inset 0 0 30px rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 @keyframes containerFadeIn {
-  from {
+  0% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.9);
+    transform: translate(-50%, -50%) scale(0.7) rotate(-5deg);
   }
-  to {
+  60% {
+    transform: translate(-50%, -50%) scale(1.05) rotate(2deg);
+  }
+  100% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
   }
 }
 
-/* Hug Emoji Animation */
+/* Icon Animation */
 #promiseRing {
-  font-size: 80px;
-  margin-bottom: 20px;
-  animation: hugFloat 3s ease-in-out infinite, hugGlow 2s ease-in-out infinite;
-  filter: drop-shadow(0 0 20px rgba(255, 180, 120, 0.8));
+  font-size: 90px;
+  margin-bottom: 25px;
+  animation: iconFloat 3s ease-in-out infinite, iconGlow 2.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px rgba(255, 180, 120, 1))
+          drop-shadow(0 0 50px rgba(255, 150, 100, 0.6));
+  position: relative;
 }
 
-@keyframes hugFloat {
+#promiseRing::before {
+  content: attr(data-icon);
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: iconPulse 2s ease-in-out infinite;
+  opacity: 0.3;
+}
+
+@keyframes iconFloat {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-12px) rotate(5deg) scale(1.05);
   }
   50% {
-    transform: translateY(-15px) rotate(10deg);
+    transform: translateY(-20px) rotate(-5deg) scale(1.1);
+  }
+  75% {
+    transform: translateY(-12px) rotate(5deg) scale(1.05);
   }
 }
 
-@keyframes hugGlow {
+@keyframes iconGlow {
   0%, 100% {
-    filter: drop-shadow(0 0 20px rgba(255, 180, 120, 0.8));
+    filter: drop-shadow(0 0 30px rgba(255, 180, 120, 1))
+            drop-shadow(0 0 50px rgba(255, 150, 100, 0.6));
   }
   50% {
-    filter: drop-shadow(0 0 35px rgba(255, 150, 100, 1));
+    filter: drop-shadow(0 0 50px rgba(255, 150, 100, 1))
+            drop-shadow(0 0 80px rgba(255, 180, 120, 0.8));
+  }
+}
+
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0;
   }
 }
 
 #valentineQuestion {
-  font-size: 36px;
+  font-size: 38px;
   color: #fff;
-  text-shadow: 0 0 25px rgba(255, 180, 120, 1),
-               0 0 40px rgba(255, 140, 100, 0.8),
-               0 0 60px rgba(255, 180, 120, 0.5);
-  margin-bottom: 35px;
+  text-shadow: 0 0 30px rgba(255, 180, 120, 1),
+               0 0 50px rgba(255, 140, 100, 1),
+               0 0 80px rgba(255, 180, 120, 0.6),
+               0 4px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 40px;
   font-weight: bold;
-  animation: questionPulse 2.5s ease-in-out infinite;
-  letter-spacing: 1px;
+  animation: questionPulse 3s ease-in-out infinite;
+  letter-spacing: 1.5px;
+  line-height: 1.4;
 }
 
 @keyframes questionPulse {
   0%, 100% {
     transform: scale(1);
-    text-shadow: 0 0 25px rgba(255, 180, 120, 1),
-                 0 0 40px rgba(255, 140, 100, 0.8),
-                 0 0 60px rgba(255, 180, 120, 0.5);
+    text-shadow: 0 0 30px rgba(255, 180, 120, 1),
+                 0 0 50px rgba(255, 140, 100, 1),
+                 0 0 80px rgba(255, 180, 120, 0.6),
+                 0 4px 10px rgba(0, 0, 0, 0.5);
   }
   50% {
-    transform: scale(1.05);
-    text-shadow: 0 0 35px rgba(255, 180, 120, 1),
-                 0 0 50px rgba(255, 140, 100, 1),
-                 0 0 80px rgba(255, 180, 120, 0.8);
+    transform: scale(1.03);
+    text-shadow: 0 0 40px rgba(255, 180, 120, 1),
+                 0 0 60px rgba(255, 140, 100, 1),
+                 0 0 100px rgba(255, 180, 120, 0.8),
+                 0 4px 15px rgba(0, 0, 0, 0.5);
   }
 }
 
 #buttonContainer {
   display: flex;
-  gap: 25px;
+  gap: 30px;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
 }
 
 .answerButton {
-  padding: 18px 45px;
-  font-size: 26px;
+  padding: 20px 50px;
+  font-size: 28px;
   font-weight: bold;
   border: none;
   border-radius: 60px;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   font-family: 'Georgia', serif;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5),
+              0 0 40px rgba(255, 180, 120, 0.3);
   position: relative;
   overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .answerButton::before {
@@ -172,30 +281,53 @@ body {
   width: 0;
   height: 0;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.4);
   transform: translate(-50%, -50%);
   transition: width 0.6s, height 0.6s;
 }
 
 .answerButton:hover::before {
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
+}
+
+.answerButton::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: rotate(45deg);
+  animation: buttonShimmer 3s linear infinite;
+}
+
+@keyframes buttonShimmer {
+  0% {
+    transform: translateX(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(45deg);
+  }
 }
 
 #yesButton {
   background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 50%, #f44336 100%);
   color: white;
   transition: font-size 0.3s ease, transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  box-shadow: 0 6px 25px rgba(255, 140, 66, 0.5),
-              0 0 40px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 8px 30px rgba(255, 140, 66, 0.6),
+              0 0 50px rgba(255, 107, 53, 0.4),
+              inset 0 -3px 10px rgba(0, 0, 0, 0.3);
   position: relative;
   z-index: 1;
 }
 
 #yesButton:hover {
-  transform: scale(1.15) rotate(-2deg);
-  box-shadow: 0 10px 35px rgba(255, 140, 66, 0.7),
-              0 0 60px rgba(255, 107, 53, 0.5);
+  transform: scale(1.2) rotate(-3deg);
+  box-shadow: 0 12px 40px rgba(255, 140, 66, 0.8),
+              0 0 70px rgba(255, 107, 53, 0.6),
+              inset 0 -3px 10px rgba(0, 0, 0, 0.3);
 }
 
 #yesButton:active {
@@ -210,13 +342,15 @@ body {
 #noButton {
   background: linear-gradient(135deg, #8b7355 0%, #6d5d4b 100%);
   color: white;
-  box-shadow: 0 6px 20px rgba(139, 115, 85, 0.4);
+  box-shadow: 0 8px 25px rgba(139, 115, 85, 0.5),
+              inset 0 -3px 10px rgba(0, 0, 0, 0.3);
 }
 
 #noButton:hover {
-  transform: scale(1.1) rotate(2deg);
+  transform: scale(1.12) rotate(3deg);
   background: linear-gradient(135deg, #6d5d4b 0%, #5c4d3d 100%);
-  box-shadow: 0 8px 25px rgba(139, 115, 85, 0.6);
+  box-shadow: 0 10px 30px rgba(139, 115, 85, 0.7),
+              inset 0 -3px 10px rgba(0, 0, 0, 0.3);
 }
 
 #noButton:active {
@@ -231,21 +365,26 @@ body {
 /* Pleading Image Styles */
 #pleadingImage {
   display: none;
-  max-width: 320px;
-  max-height: 320px;
-  margin: 25px auto;
-  border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(255, 180, 120, 0.5),
-              0 0 60px rgba(255, 140, 100, 0.3);
-  animation: imageFadeIn 0.6s ease;
+  max-width: 350px;
+  max-height: 350px;
+  margin: 30px auto;
+  border-radius: 25px;
+  box-shadow: 0 20px 50px rgba(255, 180, 120, 0.6),
+              0 0 80px rgba(255, 140, 100, 0.4),
+              inset 0 0 30px rgba(255, 255, 255, 0.1);
+  animation: imageFadeIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  border: 3px solid rgba(255, 255, 255, 0.3);
 }
 
 @keyframes imageFadeIn {
-  from {
+  0% {
     opacity: 0;
-    transform: scale(0.7) rotate(-5deg);
+    transform: scale(0.5) rotate(-10deg);
   }
-  to {
+  60% {
+    transform: scale(1.05) rotate(5deg);
+  }
+  100% {
     opacity: 1;
     transform: scale(1) rotate(0deg);
   }
@@ -260,50 +399,66 @@ body {
   z-index: 1001;
   text-align: center;
   display: none;
-  animation: thankYouFadeIn 1.5s ease;
+  animation: thankYouFadeIn 1.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 60px 50px;
+  border-radius: 35px;
+  backdrop-filter: blur(25px);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6),
+              0 0 100px rgba(255, 180, 120, 0.4),
+              inset 0 0 50px rgba(255, 255, 255, 0.1);
+  border: 3px solid rgba(255, 255, 255, 0.3);
 }
 
 @keyframes thankYouFadeIn {
-  from {
+  0% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.5);
+    transform: translate(-50%, -50%) scale(0.3) rotate(-15deg);
   }
-  to {
+  60% {
+    transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
+  }
+  100% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
   }
 }
 
 /* Promise Symbol Container */
 #promiseSymbol {
   position: relative;
-  margin-bottom: 30px;
-  height: 180px;
+  margin-bottom: 40px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .infinity {
-  font-size: 160px;
+  font-size: 180px;
   color: #ff8c42;
-  text-shadow: 0 0 40px rgba(255, 140, 66, 1),
-               0 0 60px rgba(255, 107, 53, 0.8);
-  animation: infinityAppear 1.5s ease;
+  text-shadow: 0 0 50px rgba(255, 140, 66, 1),
+               0 0 80px rgba(255, 107, 53, 1),
+               0 0 120px rgba(255, 180, 120, 0.6);
+  animation: infinityAppear 2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   position: absolute;
   font-weight: bold;
+  filter: drop-shadow(0 10px 30px rgba(255, 140, 66, 0.5));
 }
 
 .infinity.spinning {
-  animation: infinitySpin 4s ease-in-out infinite;
+  animation: infinitySpin 5s ease-in-out infinite;
 }
 
 @keyframes infinityAppear {
-  from {
+  0% {
     opacity: 0;
-    transform: scale(0) rotate(0deg);
+    transform: scale(0) rotate(-360deg);
   }
-  to {
+  60% {
+    transform: scale(1.2) rotate(400deg);
+  }
+  100% {
     opacity: 1;
     transform: scale(1) rotate(360deg);
   }
@@ -312,45 +467,54 @@ body {
 @keyframes infinitySpin {
   0%, 100% {
     transform: rotate(0deg) scale(1);
+    filter: drop-shadow(0 10px 30px rgba(255, 140, 66, 0.5));
   }
   50% {
-    transform: rotate(180deg) scale(1.1);
+    transform: rotate(180deg) scale(1.15);
+    filter: drop-shadow(0 15px 40px rgba(255, 140, 66, 0.8));
   }
 }
 
 .heart-overlay {
-  font-size: 90px;
+  font-size: 100px;
   position: absolute;
-  animation: heartOverlayAppear 1.5s ease 0.5s backwards;
+  animation: heartOverlayAppear 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.5s backwards;
+  filter: drop-shadow(0 5px 20px rgba(255, 100, 150, 0.6));
 }
 
 .heart-overlay.beating {
-  animation: heartPulseBeat 1.8s ease infinite;
+  animation: heartPulseBeat 2s ease infinite;
 }
 
 @keyframes heartOverlayAppear {
-  from {
+  0% {
     opacity: 0;
-    transform: scale(0);
+    transform: scale(0) rotate(-180deg);
   }
-  to {
+  60% {
+    transform: scale(1.3) rotate(200deg);
+  }
+  100% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) rotate(0deg);
   }
 }
 
 @keyframes heartPulseBeat {
   0%, 100% {
     transform: scale(1);
+    filter: drop-shadow(0 5px 20px rgba(255, 100, 150, 0.6));
   }
   15% {
-    transform: scale(1.3);
+    transform: scale(1.35);
+    filter: drop-shadow(0 8px 30px rgba(255, 100, 150, 0.9));
   }
   30% {
     transform: scale(1);
   }
   45% {
-    transform: scale(1.3);
+    transform: scale(1.35);
+    filter: drop-shadow(0 8px 30px rgba(255, 100, 150, 0.9));
   }
   60% {
     transform: scale(1);
@@ -358,208 +522,234 @@ body {
 }
 
 #thankYouMessage {
-  font-size: 40px;
+  font-size: 42px;
   color: #fff;
-  text-shadow: 0 0 30px rgba(255, 180, 120, 1),
-               0 0 50px rgba(255, 140, 100, 0.8),
-               0 0 70px rgba(255, 180, 120, 0.6);
-  margin-top: 25px;
+  text-shadow: 0 0 40px rgba(255, 180, 120, 1),
+               0 0 60px rgba(255, 140, 100, 1),
+               0 0 90px rgba(255, 180, 120, 0.7),
+               0 5px 15px rgba(0, 0, 0, 0.5);
+  margin-top: 30px;
   font-weight: bold;
-  animation: messageFadeInUp 1.5s ease 0.8s backwards;
-  letter-spacing: 1px;
+  animation: messageFadeInUp 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.8s backwards;
+  letter-spacing: 1.5px;
+  line-height: 1.5;
 }
 
 #subMessage {
   display: block;
-  font-size: 26px;
-  margin-top: 18px;
-  animation: messageFadeInUp 1.5s ease 1.2s backwards;
+  font-size: 28px;
+  margin-top: 20px;
+  animation: messageFadeInUp 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) 1.4s backwards;
   color: #ffe4cc;
+  text-shadow: 0 0 20px rgba(255, 180, 120, 0.8),
+               0 3px 10px rgba(0, 0, 0, 0.5);
 }
 
 @keyframes messageFadeInUp {
-  from {
+  0% {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(50px) scale(0.9);
   }
-  to {
+  60% {
+    transform: translateY(-10px) scale(1.05);
+  }
+  100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 /* Promise Text Lines */
 #promiseText {
-  margin-top: 40px;
-  padding: 0 20px;
+  margin-top: 50px;
+  padding: 0 30px;
 }
 
 .promise-line {
-  font-size: 22px;
+  font-size: 24px;
   color: #ffe4cc;
-  text-shadow: 0 0 15px rgba(255, 180, 120, 0.6);
-  margin: 15px 0;
+  text-shadow: 0 0 20px rgba(255, 180, 120, 0.7),
+               0 3px 8px rgba(0, 0, 0, 0.5);
+  margin: 18px 0;
   opacity: 0;
-  animation: promiseLineFadeIn 1s ease forwards;
+  animation: promiseLineFadeIn 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .promise-line:nth-child(1) {
-  animation-delay: 1.8s;
+  animation-delay: 2s;
 }
 
 .promise-line:nth-child(2) {
-  animation-delay: 2.2s;
+  animation-delay: 2.5s;
 }
 
 .promise-line:nth-child(3) {
-  animation-delay: 2.6s;
-}
-
-.promise-line:nth-child(4) {
   animation-delay: 3s;
 }
 
-@keyframes promiseLineFadeIn {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.promise-line:nth-child(4) {
+  animation-delay: 3.5s;
 }
 
-/* Floating hearts animation around promise */
-@keyframes floatingHearts {
+@keyframes promiseLineFadeIn {
   0% {
-    transform: translateY(0) rotate(0deg);
     opacity: 0;
+    transform: translateX(-50px) rotate(-5deg);
   }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
+  60% {
+    transform: translateX(10px) rotate(2deg);
   }
   100% {
-    transform: translateY(-100vh) rotate(360deg);
-    opacity: 0;
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
   }
 }
 
 /* Budu Character at Bottom */
 #buduContainer {
   position: fixed;
-  bottom: 20px;
+  bottom: 25px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 999;
-  animation: buduBounce 2s ease-in-out infinite;
+  animation: buduBounce 2.5s ease-in-out infinite;
 }
 
 #buduCharacter {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
-  box-shadow: 0 10px 30px rgba(255, 180, 120, 0.4),
-              0 0 40px rgba(255, 140, 100, 0.3);
-  filter: drop-shadow(0 5px 15px rgba(255, 180, 120, 0.5));
-  transition: transform 0.3s ease;
+  box-shadow: 0 15px 40px rgba(255, 180, 120, 0.5),
+              0 0 50px rgba(255, 140, 100, 0.4);
+  filter: drop-shadow(0 8px 20px rgba(255, 180, 120, 0.6));
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  border: 3px solid rgba(255, 255, 255, 0.3);
 }
 
 #buduCharacter:hover {
-  transform: scale(1.15) rotate(5deg);
-  box-shadow: 0 15px 40px rgba(255, 180, 120, 0.6),
-              0 0 50px rgba(255, 140, 100, 0.5);
+  transform: scale(1.2) rotate(10deg);
+  box-shadow: 0 20px 50px rgba(255, 180, 120, 0.7),
+              0 0 70px rgba(255, 140, 100, 0.6);
+  filter: drop-shadow(0 10px 30px rgba(255, 180, 120, 0.8));
 }
 
 @keyframes buduBounce {
   0%, 100% {
-    transform: translateX(-50%) translateY(0px);
+    transform: translateX(-50%) translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateX(-50%) translateY(-8px) rotate(-5deg);
   }
   50% {
-    transform: translateX(-50%) translateY(-10px);
+    transform: translateX(-50%) translateY(-15px) rotate(0deg);
+  }
+  75% {
+    transform: translateX(-50%) translateY(-8px) rotate(5deg);
   }
 }
 
 /* Mobile responsive */
 @media (max-width: 600px) {
+  #valentineContainer {
+    padding: 40px 30px;
+    max-width: 90%;
+  }
+  
   #promiseRing {
-    font-size: 60px;
-  }
-  
-  #valentineQuestion {
-    font-size: 26px;
-    padding: 0 20px;
-  }
-  
-  .answerButton {
-    padding: 15px 35px;
-    font-size: 22px;
-  }
-  
-  #buttonContainer {
-    gap: 18px;
-  }
-  
-  #pleadingImage {
-    max-width: 240px;
-    max-height: 240px;
-  }
-  
-  .infinity {
-    font-size: 120px;
-  }
-  
-  .heart-overlay {
     font-size: 70px;
   }
   
+  #valentineQuestion {
+    font-size: 28px;
+    padding: 0 15px;
+  }
+  
+  .answerButton {
+    padding: 16px 38px;
+    font-size: 24px;
+  }
+  
+  #buttonContainer {
+    gap: 20px;
+  }
+  
+  #pleadingImage {
+    max-width: 260px;
+    max-height: 260px;
+  }
+  
+  #thankYouContainer {
+    padding: 40px 30px;
+    max-width: 90%;
+  }
+  
+  .infinity {
+    font-size: 130px;
+  }
+  
+  .heart-overlay {
+    font-size: 75px;
+  }
+  
   #promiseSymbol {
-    height: 140px;
+    height: 160px;
   }
   
   #thankYouMessage {
-    font-size: 30px;
-    padding: 0 20px;
+    font-size: 32px;
+    padding: 0 15px;
   }
   
   #subMessage {
-    font-size: 20px;
+    font-size: 22px;
   }
   
   .promise-line {
-    font-size: 18px;
+    font-size: 19px;
+    padding: 10px 15px;
   }
   
   #musicToggle {
-    width: 45px;
-    height: 45px;
-    font-size: 20px;
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
   }
   
   #buduCharacter {
-    width: 80px;
-    height: 80px;
+    width: 75px;
+    height: 75px;
   }
 }
 
-/* Extra effects for special moments */
-@keyframes shimmer {
-  0% {
-    background-position: -1000px 0;
+/* Extra small screens */
+@media (max-width: 400px) {
+  #valentineContainer {
+    padding: 30px 20px;
   }
-  100% {
-    background-position: 1000px 0;
+  
+  #valentineQuestion {
+    font-size: 24px;
   }
-}
-
-.shimmer-effect {
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(255, 255, 255, 0.3) 50%, 
-    transparent 100%);
-  background-size: 1000px 100%;
-  animation: shimmer 3s infinite;
+  
+  .answerButton {
+    padding: 14px 30px;
+    font-size: 20px;
+  }
+  
+  #thankYouMessage {
+    font-size: 28px;
+  }
+  
+  #subMessage {
+    font-size: 18px;
+  }
+  
+  .promise-line {
+    font-size: 17px;
+  }
 }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:image" content="https://raw.githubusercontent.com/sojijr/valentine-website/main/public/images/favicon.png">
     <link rel="icon" href="./images/favicon.png" type="image/x-icon" />  
-    <title>Happy Hug Day 🤗</title>
+    <title id="pageTitle">Happy Valentine's Week 💕</title>
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
@@ -23,30 +23,33 @@
       <source src="https://cdn.pixabay.com/audio/2022/05/13/audio_1db50838c5.mp3" type="audio/mpeg">
     </audio>
     
+    <!-- Date Display -->
+    <div id="dateDisplay"></div>
+    
     <div id="valentineContainer">
-      <div id="promiseRing">🤗</div>
-      <div id="valentineQuestion">Can I give you a warm hug? 🫂</div>
+      <div id="promiseRing">💕</div>
+      <div id="valentineQuestion">Loading...</div>
       <div id="buttonContainer">
-        <button class="answerButton" id="yesButton">Yes, Hug Me! 🤗💕</button>
-        <button class="answerButton" id="noButton">No hugs... 😢</button>
+        <button class="answerButton" id="yesButton">Yes! 💕</button>
+        <button class="answerButton" id="noButton">No... 😢</button>
       </div>
       <img id="pleadingImage" src="" alt="Please say yes" />
     </div>
 
     <div id="thankYouContainer">
       <div id="promiseSymbol">
-        <div class="infinity">🤗</div>
-        <div class="heart-overlay">💕</div>
+        <div class="infinity">💕</div>
+        <div class="heart-overlay">✨</div>
       </div>
       <div id="thankYouMessage">
-        *The warmest hug for you, Mero Maya!* 🥹🫂<br>
-        <span id="subMessage">You just filled my heart with so much warmth!</span>
+        <span id="mainThankYou">Thank you, Mero Maya! 🥹💕</span><br>
+        <span id="subMessage">You just made my heart overflow with joy!</span>
       </div>
       <div id="promiseText">
-        <p class="promise-line">In your arms, I find my home 🏠💕</p>
-        <p class="promise-line">Your hugs heal every wound in my heart 💖</p>
-        <p class="promise-line">No distance can keep me from hugging you 🌍🤗</p>
-        <p class="promise-line">Forever wrapped in your love and warmth 🫂✨</p>
+        <p class="promise-line">Promise line 1</p>
+        <p class="promise-line">Promise line 2</p>
+        <p class="promise-line">Promise line 3</p>
+        <p class="promise-line">Promise line 4</p>
       </div>
     </div>
 
@@ -58,18 +61,163 @@
     <script src="script.js"></script>
     
     <script>
-      // Music control
-      const music = document.getElementById("bgMusic");
-      const musicToggle = document.getElementById("musicToggle");
-      let isMusicPlaying = false;
+      // Determine which day it is and set content accordingly
+      var today = new Date();
+      var month = today.getMonth(); // 0-11 (January is 0, February is 1)
+      var day = today.getDate();
       
-      // Auto-play music (with user interaction)
+      var currentEvent = 'valentine'; // default
+      
+      // Check if it's February (month === 1)
+      if (month === 1) { // February
+        if (day === 11) {
+          currentEvent = 'hug';
+        } else if (day === 12) {
+          currentEvent = 'kiss';
+        } else if (day === 13) {
+          currentEvent = 'valentine';
+        }
+      }
+      console.log(day);
+      
+      // Store event type for other scripts to access
+      window.currentEvent = currentEvent;
+      
+      // Content configurations
+      var content = {
+        hug: {
+          title: 'Happy Hug Day 🤗',
+          emoji: '🤗',
+          question: 'Can I give you a warm hug? 🫂',
+          yesButton: 'Yes, Hug Me! 🤗💕',
+          noButton: 'No hugs... 😢',
+          dateDisplay: '💕 Hug Day - February 12th 💕',
+          infinitySymbol: '🤗',
+          heartOverlay: '💕',
+          mainThankYou: '*The warmest hug for you, Mero Maya!* 🥹🫂',
+          subMessage: 'You just filled my heart with so much warmth!',
+          promises: [
+            'In your arms, I find my home 🏠💕',
+            'Your hugs heal every wound in my heart 💖',
+            'No distance can keep me from hugging you 🌍🤗',
+            'Forever wrapped in your love and warmth 🫂✨'
+          ],
+          pleadingQuestions: [
+            "Are you sure? Just one hug? 🥺",
+            "Pretty please? I really need a hug 🥺💕",
+            "I'll be so sad without your hug... 😭",
+            "Just one tiny hug? 🫂",
+            "My arms feel so empty... 💔😢"
+          ],
+          images: [
+            "https://media1.tenor.com/m/2BrMVhEIsgIAAAAC/mocha-bear-kiss-bear-kiss.gif",
+            "https://media.tenor.com/LBEh1g_3QbUAAAAi/please-pretty-please.gif",
+            "https://media.tenor.com/FZclYdjw3m4AAAAi/bubu-dudu-sseeyall.gif",
+            "https://media1.tenor.com/m/9fscv__vkukAAAAC/dudu-bubu-dubu-bubu-love.gif",
+            "https://media1.tenor.com/m/lV1EF4I83MkAAAAC/bubu-dudu-twitter.gif"
+          ]
+        },
+        kiss: {
+          title: 'Happy Kiss Day 💋',
+          emoji: '💋',
+          question: 'May I steal a sweet kiss from you? 😘💕',
+          yesButton: 'Yes, Kiss Me! 💋✨',
+          noButton: 'Maybe later... 😳',
+          dateDisplay: '💋 Kiss Day - February 13th 💋',
+          infinitySymbol: '💋',
+          heartOverlay: '💕',
+          mainThankYou: '*The sweetest kiss for my sweetest love!* 😘💕',
+          subMessage: 'That kiss just made my heart skip a beat!',
+          promises: [
+            'Your lips are my favorite place to be 💋💕',
+            'Every kiss writes a new love story 📖💖',
+            'In your kiss, I find paradise 🌹✨',
+            'Forever kissing you goodnight and good morning 💋🌙☀️'
+          ],
+          pleadingQuestions: [
+            "Just one little kiss? 🥺💋",
+            "Please? Your lips look so kissable 😘",
+            "I promise to be gentle... 👉👈",
+            "A kiss would make my day perfect 💕",
+            "My lips are lonely without yours... 😢"
+          ],
+          images: [
+            "https://media1.tenor.com/m/z0BGYS7UF0QAAAAC/tkthao219-bubududu.gif",
+            "https://media1.tenor.com/m/mGVF72-UxjwAAAAC/tkthao219-bubududu.gif",
+            "https://media.tenor.com/LBEh1g_3QbUAAAAi/please-pretty-please.gif",
+            "https://media1.tenor.com/m/s0ygwznGUsMAAAAC/tkthao219-bubududu.gif",
+            "https://media.tenor.com/ubjtdkQTtGUAAAAi/crying-twitter.gif"
+          ]
+        },
+        valentine: {
+          title: 'Happy Valentine\'s Day 💖',
+          emoji: '💖',
+          question: 'Will you be mine this Valentine\'s Day? 💕',
+          yesButton: 'Yes, Forever! 💖✨',
+          noButton: 'Not today... 💔',
+          dateDisplay: "💝 Valentine's Day - February 14th 💝",
+          infinitySymbol: '💝',
+          heartOverlay: '💕',
+          mainThankYou: '*You\'ve made me the happiest person alive!* 🥹💖',
+          subMessage: 'My heart is overflowing with love for you!',
+          promises: [
+            'You are my forever and always 💕',
+            'Every moment with you is a treasure 💎',
+            'Together, we\'ll write our beautiful story 📖💖',
+            'My heart beats only for you, Mero Maya 💓'
+          ],
+          pleadingQuestions: [
+            "Please be my Valentine? 🥺💖",
+            "I promise to love you forever... 💕",
+            "You're my one and only... 👉👈",
+            "My heart belongs to you... 💔",
+            "Without you, there's no Valentine's Day... 😢"
+          ],
+          images: [
+            "https://media1.tenor.com/m/9fscv__vkukAAAAC/dudu-bubu-dubu-bubu-love.gif",
+            "https://media1.tenor.com/m/2BrMVhEIsgIAAAAC/mocha-bear-kiss-bear-kiss.gif",
+            "https://media.tenor.com/LBEh1g_3QbUAAAAi/please-pretty-please.gif",
+            "https://media1.tenor.com/m/lV1EF4I83MkAAAAC/bubu-dudu-twitter.gif",
+            "https://media.tenor.com/FZclYdjw3m4AAAAi/bubu-dudu-sseeyall.gif"
+          ]
+        }
+      };
+      
+      var selectedContent = content[currentEvent];
+      
+      // Set page content
+      document.getElementById('pageTitle').textContent = selectedContent.title;
+      document.getElementById('promiseRing').textContent = selectedContent.emoji;
+      document.getElementById('valentineQuestion').textContent = selectedContent.question;
+      document.getElementById('yesButton').innerHTML = selectedContent.yesButton;
+      document.getElementById('noButton').innerHTML = selectedContent.noButton;
+      document.getElementById('mainThankYou').innerHTML = selectedContent.mainThankYou;
+      document.getElementById('subMessage').textContent = selectedContent.subMessage;
+      document.getElementById('dateDisplay').textContent = selectedContent.dateDisplay;
+      document.querySelector('.infinity').textContent = selectedContent.infinitySymbol;
+      document.querySelector('.heart-overlay').textContent = selectedContent.heartOverlay;
+      
+      // Set promises
+      var promiseLines = document.querySelectorAll('.promise-line');
+      selectedContent.promises.forEach(function(promise, index) {
+        if (promiseLines[index]) {
+          promiseLines[index].textContent = promise;
+        }
+      });
+      
+      // Music control
+      var music = document.getElementById("bgMusic");
+      var musicToggle = document.getElementById("musicToggle");
+      var isMusicPlaying = false;
+      
       document.addEventListener('click', function initMusic() {
         if (!isMusicPlaying) {
-          music.play().then(() => {
+          music.play().then(function() {
             isMusicPlaying = true;
             musicToggle.textContent = "🔊";
-          }).catch(e => console.log("Audio playback failed:", e));
+          }).catch(function(e) { 
+            console.log("Audio playback failed:", e);
+          });
         }
         document.removeEventListener('click', initMusic);
       }, { once: true });
@@ -87,39 +235,22 @@
         }
       });
       
-      // Array of pleading images
-      const images = [
-        "https://media1.tenor.com/m/2BrMVhEIsgIAAAAC/mocha-bear-kiss-bear-kiss.gif",
-        "https://media.tenor.com/LBEh1g_3QbUAAAAi/please-pretty-please.gif",
-        "https://media.tenor.com/FZclYdjw3m4AAAAi/bubu-dudu-sseeyall.gif",
-        "https://media1.tenor.com/m/9fscv__vkukAAAAC/dudu-bubu-dudu-bubu-love.gif",
-        "https://media1.tenor.com/m/lV1EF4I83MkAAAAC/bubu-dudu-twitter.gif",
-        "https://media.tenor.com/0XxZLMzjYV0AAAAi/dudu-crying-texting.gif",
-        "https://media1.tenor.com/m/3OJLuggNiuUAAAAC/bubu-dudu-crying.gif",
-        "https://media1.tenor.com/m/z0BGYS7UF0QAAAAC/tkthao219-bubududu.gif",
-        "https://media1.tenor.com/m/mGVF72-UxjwAAAAC/tkthao219-bubududu.gif",
-        "https://media1.tenor.com/m/s0ygwznGUsMAAAAC/tkthao219-bubududu.gif",
-        "https://media.tenor.com/ubjtdkQTtGUAAAAi/crying-twitter.gif"
-      ];
-      
-      let currentImageIndex = 0;
+      var currentImages = selectedContent.images;
+      var currentImageIndex = 0;
       
       // Yes button - shows thank you with promise animation
       document.getElementById("yesButton").addEventListener("click", function() {
         document.getElementById("noButton").disabled = true;
-        
-        // Hide the valentine container
         document.getElementById("valentineContainer").style.display = "none";
-        
-        // Show the thank you container with animations
-        const thankYouContainer = document.getElementById("thankYouContainer");
+        var thankYouContainer = document.getElementById("thankYouContainer");
         thankYouContainer.style.display = "block";
-        
-        // Trigger animations
-        setTimeout(() => {
+        setTimeout(function() {
           document.querySelector(".infinity").classList.add("spinning");
           document.querySelector(".heart-overlay").classList.add("beating");
         }, 100);
+        
+        // Create floating hearts
+        createFloatingHearts();
       });
 
       // No button - makes Yes button bigger and shows pleading images
@@ -128,39 +259,13 @@
         var currentFontSize = parseInt(window.getComputedStyle(yesButton).fontSize);
         yesButton.style.fontSize = currentFontSize + 10 + "px";
         
-        // Show pleading image
-        const pleadingImage = document.getElementById("pleadingImage");
-        pleadingImage.src = images[currentImageIndex];
+        var pleadingImage = document.getElementById("pleadingImage");
+        pleadingImage.src = currentImages[currentImageIndex];
         pleadingImage.style.display = "block";
         pleadingImage.classList.add("fadeIn");
+        currentImageIndex = (currentImageIndex + 1) % currentImages.length;
         
-        // Cycle through images
-        currentImageIndex = (currentImageIndex + 1) % images.length;
-        
-        // Make the question more pleading
-        var questions = [
-          "Are you sure? Just one hug? 🥺",
-          "Pretty please? I really need a hug 🥺💕",
-          "I'll be so sad without your hug... 😭",
-          "Just one tiny hug? 🫂",
-          "My arms feel so empty... 💔😢",
-          "What did I do to not deserve a hug? 😭",
-          "Even strangers hug… 😔",
-          "Look at this face… how can you deny a hug? 🥹",
-          "I need your warmth… 💔",
-          "This is hug deprivation… 😵‍💫",
-          "One little hug won't hurt… right? 👉👈",
-          "I'll remember this hug-less day forever… 😢",
-          "You're really going to leave me un-hugged? 😭",
-          "My last hope for warmth… gone… 💔",
-          "I'm not crying for a hug, you're crying 😭",
-          "Hug me and I'll stop being dramatic (maybe) 😌",
-          "This is my cold and lonely origin story… 😈💔",
-          "Even the hug emoji is sad now… 🤗😢",
-          "I trusted you for hugs… 😔",
-          "Fine… I'll just sit here and freeze… 😭🥶"
-        ];
-        
+        var questions = selectedContent.pleadingQuestions;
         var questionDiv = document.getElementById("valentineQuestion");
         var currentIndex = questions.indexOf(questionDiv.textContent);
         
@@ -170,6 +275,24 @@
           questionDiv.textContent = questions[0];
         }
       });
+      
+      // Create floating hearts effect
+      function createFloatingHearts() {
+        setInterval(function() {
+          var heart = document.createElement('div');
+          heart.className = 'floating-heart';
+          var emojis = ['💕', '💖', '💗', '💓', '💝', selectedContent.emoji];
+          heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          heart.style.left = Math.random() * 100 + '%';
+          heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+          heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+          document.body.appendChild(heart);
+          
+          setTimeout(function() {
+            heart.remove();
+          }, 6000);
+        }, 300);
+      }
     </script>
   </body>
 </html>
