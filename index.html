@@ -1,298 +1,441 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:image" content="https://raw.githubusercontent.com/sojijr/valentine-website/main/public/images/favicon.png">
-    <link rel="icon" href="./images/favicon.png" type="image/x-icon" />  
-    <title id="pageTitle">Happy Valentine's Week 💕</title>
-    <link rel="stylesheet" href="./style.css">
-  </head>
-  <body>
-    <canvas id="starfield"></canvas>
+    <title>Happy Birthday Maya! 🎂</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+
+        /* Birthday Theme */
+        body.birthday-day {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ff9a9e 100%);
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 50px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 700px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin: 20px 0;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .nickname {
+            font-size: 1.5rem;
+            color: #666;
+            font-style: italic;
+            margin: 10px 0 30px 0;
+        }
+
+        .emoji {
+            font-size: 6rem;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-30px) rotate(-5deg);
+            }
+            50% {
+                transform: translateY(-40px) rotate(0deg);
+            }
+            75% {
+                transform: translateY(-30px) rotate(5deg);
+            }
+        }
+
+        .message {
+            font-size: 1.4rem;
+            line-height: 2;
+            color: #333;
+            margin: 30px 0;
+        }
+
+        .balloons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .balloon {
+            position: absolute;
+            font-size: 3rem;
+            animation: float 8s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-150px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #f0f;
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .button {
+            display: inline-block;
+            padding: 18px 45px;
+            margin: 20px 10px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(245, 87, 108, 0.4);
+        }
+
+        .countdown {
+            font-size: 1.3rem;
+            color: #666;
+            margin-top: 25px;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .wishes-container {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe5f0 100%);
+            border-radius: 20px;
+            border: 3px solid #f093fb;
+        }
+
+        .wish {
+            font-size: 1.2rem;
+            color: #555;
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .cake-animation {
+            font-size: 5rem;
+            margin: 20px 0;
+            animation: cake-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes cake-glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 5px #f093fb);
+                transform: scale(1);
+            }
+            50% {
+                filter: drop-shadow(0 0 20px #f5576c);
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="balloons" id="balloons"></div>
     
-    <div id="canvasBlur"></div>
-    
-    <!-- Music Control -->
-    <div id="musicControl">
-      <button id="musicToggle">🔊</button>
-    </div>
-    
-    <!-- Audio element for background music -->
-    <audio id="bgMusic" loop>
-      <source src="https://cdn.pixabay.com/audio/2022/05/13/audio_1db50838c5.mp3" type="audio/mpeg">
-    </audio>
-    
-    <!-- Date Display -->
-    <div id="dateDisplay"></div>
-    
-    <div id="valentineContainer">
-      <div id="promiseRing">💕</div>
-      <div id="valentineQuestion">Loading...</div>
-      <div id="buttonContainer">
-        <button class="answerButton" id="yesButton">Yes! 💕</button>
-        <button class="answerButton" id="noButton">No... 😢</button>
-      </div>
-      <img id="pleadingImage" src="" alt="Please say yes" />
+    <div class="container">
+        <div class="date-badge" id="dateBadge"></div>
+        <div class="emoji" id="emoji"></div>
+        <h1 id="title"></h1>
+        <div class="nickname" id="nickname"></div>
+        <p class="message" id="message"></p>
+        
+        <div id="specialContent"></div>
+        
+        <button class="button" onclick="celebrate()">🎉 Celebrate! 🎉</button>
+        <div class="countdown" id="countdown"></div>
     </div>
 
-    <div id="thankYouContainer">
-      <div id="promiseSymbol">
-        <div class="infinity">💕</div>
-        <div class="heart-overlay">✨</div>
-      </div>
-      <div id="thankYouMessage">
-        <span id="mainThankYou">Thank you, Mero Maya! 🥹💕</span><br>
-        <span id="subMessage">You just made my heart overflow with joy!</span>
-      </div>
-      <div id="promiseText">
-        <p class="promise-line">Promise line 1</p>
-        <p class="promise-line">Promise line 2</p>
-        <p class="promise-line">Promise line 3</p>
-        <p class="promise-line">Promise line 4</p>
-      </div>
-    </div>
-
-    <!-- Budu Character at Bottom -->
-    <div id="buduContainer">
-      <img src="./images/bidu.png" alt="Budu" id="buduCharacter">
-    </div>
-
-    <script src="script.js"></script>
-    
     <script>
-      // Determine which day it is and set content accordingly
-      var today = new Date();
-      var month = today.getMonth(); // 0-11 (January is 0, February is 1)
-      var day = today.getDate();
-      
-      var currentEvent = 'valentine'; // default
-      
-      // Check if it's February (month === 1)
-      if (month === 1) { // February
-        if (day === 12) {
-          currentEvent = 'hug';
-        } else if (day === 13) {
-          currentEvent = 'kiss';
-        } else if (day === 14) {
-          currentEvent = 'valentine';
+        function getDateInfo() {
+            const now = new Date();
+            const month = now.getMonth(); // 0-11 (May = 4)
+            const day = now.getDate();
+            
+            // May 5th - Birthday!
+            if (month === 4 && day === 5) {
+                return {
+                    type: 'birthday-day',
+                    badge: 'May 5th - Special Day!',
+                    emoji: '🎂',
+                    title: 'Happy Birthday Maya! 🎉',
+                    nickname: '(aka Ghuntudo 💕)',
+                    message: 'Today is YOUR day! A day to celebrate the amazing person you are, the joy you bring to everyone around you, and all the wonderful moments yet to come. You make the world brighter just by being in it!',
+                    balloons: '🎈',
+                    showWishes: true
+                };
+            }
+            // Before birthday
+            else if (month < 4 || (month === 4 && day < 5)) {
+                const birthday = new Date(now.getFullYear(), 4, 5);
+                return {
+                    type: 'valentine-day',
+                    badge: 'Coming Soon',
+                    emoji: '🎁',
+                    title: 'Maya\'s Birthday is Coming!',
+                    nickname: '(our Ghuntudo 💝)',
+                    message: 'Get ready for a special celebration! Something amazing is just around the corner...',
+                    balloons: '🎈',
+                    upcoming: true
+                };
+            }
+            // After birthday
+            else {
+                return {
+                    type: 'valentine-day',
+                    badge: 'Until Next Year',
+                    emoji: '✨',
+                    title: 'Hope You Had an Amazing Birthday, Maya!',
+                    nickname: '(sweet Ghuntudo 💕)',
+                    message: 'Every day with you is special, but May 5th will always be extra magical. Here\'s to all the joy and love you deserve, today and every day!',
+                    balloons: '💝'
+                };
+            }
         }
-      }
-      console.log(day);
-      
-      // Store event type for other scripts to access
-      window.currentEvent = currentEvent;
-      
-      // Content configurations
-      var content = {
-        hug: {
-          title: 'Happy Hug Day 🤗',
-          emoji: '🤗',
-          question: 'Can I give you a warm hug? 🫂',
-          yesButton: 'Yes, Hug Me! 🤗💕',
-          noButton: 'No hugs... 😢',
-          dateDisplay: '💕 Hug Day - February 12th 💕',
-          infinitySymbol: '🤗',
-          heartOverlay: '💕',
-          mainThankYou: '*The warmest hug for you, Mero Maya!* 🥹🫂',
-          subMessage: 'You just filled my heart with so much warmth!',
-          promises: [
-            'In your arms, I find my home 🏠💕',
-            'Your hugs heal every wound in my heart 💖',
-            'No distance can keep me from hugging you 🌍🤗',
-            'Forever wrapped in your love and warmth 🫂✨'
-          ],
-          pleadingQuestions: [
-            "Are you sure? Just one hug? 🥺",
-            "Pretty please? I really need a hug 🥺💕",
-            "I'll be so sad without your hug... 😭",
-            "Just one tiny hug? 🫂",
-            "My arms feel so empty... 💔😢"
-          ],
-          images: [
-            "https://media1.tenor.com/m/2BrMVhEIsgIAAAAC/mocha-bear-kiss-bear-kiss.gif",
-            "https://media.tenor.com/LBEh1g_3QbUAAAAi/please-pretty-please.gif",
-            "https://media.tenor.com/FZclYdjw3m4AAAAi/bubu-dudu-sseeyall.gif",
-            "https://media1.tenor.com/m/9fscv__vkukAAAAC/dudu-bubu-dubu-bubu-love.gif",
-            "https://media1.tenor.com/m/lV1EF4I83MkAAAAC/bubu-dudu-twitter.gif"
-          ]
-        },
-        kiss: {
-          title: 'Happy Kiss Day 💋',
-          emoji: '💋',
-          question: 'May I steal a sweet kiss from you? 😘💕',
-          yesButton: 'Yes, Kiss Me! 💋✨',
-          noButton: 'Maybe later... 😳',
-          dateDisplay: '💋 Kiss Day - February 13th 💋',
-          infinitySymbol: '💋',
-          heartOverlay: '💕',
-          mainThankYou: '*The sweetest kiss for my sweetest love!* 😘💕',
-          subMessage: 'That kiss just made my heart skip a beat!',
-          promises: [
-            'Your lips are my favorite place to be 💋💕',
-            'Every kiss writes a new love story 📖💖',
-            'In your kiss, I find paradise 🌹✨',
-            'Forever kissing you goodnight and good morning 💋🌙☀️'
-          ],
-          pleadingQuestions: [
-            "Just one little kiss? 🥺💋",
-            "Please? Your lips look so kissable 😘",
-            "I promise to be gentle... 👉👈",
-            "A kiss would make my day perfect 💕",
-            "My lips are lonely without yours... 😢"
-          ],
-          images: [
-            "https://media1.tenor.com/m/z0BGYS7UF0QAAAAC/tkthao219-bubududu.gif",
-            "https://media1.tenor.com/m/mGVF72-UxjwAAAAC/tkthao219-bubududu.gif",
-            "https://media.tenor.com/LBEh1g_3QbUAAAAi/please-pretty-please.gif",
-            "https://media1.tenor.com/m/s0ygwznGUsMAAAAC/tkthao219-bubududu.gif",
-            "https://media.tenor.com/ubjtdkQTtGUAAAAi/crying-twitter.gif"
-          ]
-        },
-        valentine: {
-          title: 'Happy Valentine\'s Day 💖',
-          emoji: '💖',
-          question: 'Will you be mine this Valentine\'s Day? 💕',
-          yesButton: 'Yes, Forever! 💖✨',
-          noButton: 'Not today... 💔',
-          dateDisplay: "💝 Valentine's Day - February 14th 💝",
-          infinitySymbol: '💝',
-          heartOverlay: '💕',
-          mainThankYou: '*You\'ve made me the happiest person alive!* 🥹💖',
-          subMessage: 'My heart is overflowing with love for you!',
-          promises: [
-            'You are my forever and always 💕',
-            'Every moment with you is a treasure 💎',
-            'Together, we\'ll write our beautiful story 📖💖',
-            'My heart beats only for you, Mero Maya 💓'
-          ],
-          pleadingQuestions: [
-            "Please be my Valentine? 🥺💖",
-            "I promise to love you forever... 💕",
-            "You're my one and only... 👉👈",
-            "My heart belongs to you... 💔",
-            "Without you, there's no Valentine's Day... 😢"
-          ],
-          images: [
-            "https://media1.tenor.com/m/9fscv__vkukAAAAC/dudu-bubu-dubu-bubu-love.gif",
-            "https://media1.tenor.com/m/2BrMVhEIsgIAAAAC/mocha-bear-kiss-bear-kiss.gif",
-            "https://media.tenor.com/LBEh1g_3QbUAAAAi/please-pretty-please.gif",
-            "https://media1.tenor.com/m/lV1EF4I83MkAAAAC/bubu-dudu-twitter.gif",
-            "https://media.tenor.com/FZclYdjw3m4AAAAi/bubu-dudu-sseeyall.gif"
-          ]
-        }
-      };
-      
-      var selectedContent = content[currentEvent];
-      
-      // Set page content
-      document.getElementById('pageTitle').textContent = selectedContent.title;
-      document.getElementById('promiseRing').textContent = selectedContent.emoji;
-      document.getElementById('valentineQuestion').textContent = selectedContent.question;
-      document.getElementById('yesButton').innerHTML = selectedContent.yesButton;
-      document.getElementById('noButton').innerHTML = selectedContent.noButton;
-      document.getElementById('mainThankYou').innerHTML = selectedContent.mainThankYou;
-      document.getElementById('subMessage').textContent = selectedContent.subMessage;
-      document.getElementById('dateDisplay').textContent = selectedContent.dateDisplay;
-      document.querySelector('.infinity').textContent = selectedContent.infinitySymbol;
-      document.querySelector('.heart-overlay').textContent = selectedContent.heartOverlay;
-      
-      // Set promises
-      var promiseLines = document.querySelectorAll('.promise-line');
-      selectedContent.promises.forEach(function(promise, index) {
-        if (promiseLines[index]) {
-          promiseLines[index].textContent = promise;
-        }
-      });
-      
-      // Music control
-      var music = document.getElementById("bgMusic");
-      var musicToggle = document.getElementById("musicToggle");
-      var isMusicPlaying = false;
-      
-      document.addEventListener('click', function initMusic() {
-        if (!isMusicPlaying) {
-          music.play().then(function() {
-            isMusicPlaying = true;
-            musicToggle.textContent = "🔊";
-          }).catch(function(e) { 
-            console.log("Audio playback failed:", e);
-          });
-        }
-        document.removeEventListener('click', initMusic);
-      }, { once: true });
-      
-      musicToggle.addEventListener("click", function(e) {
-        e.stopPropagation();
-        if (isMusicPlaying) {
-          music.pause();
-          musicToggle.textContent = "🔇";
-          isMusicPlaying = false;
-        } else {
-          music.play();
-          musicToggle.textContent = "🔊";
-          isMusicPlaying = true;
-        }
-      });
-      
-      var currentImages = selectedContent.images;
-      var currentImageIndex = 0;
-      
-      // Yes button - shows thank you with promise animation
-      document.getElementById("yesButton").addEventListener("click", function() {
-        document.getElementById("noButton").disabled = true;
-        document.getElementById("valentineContainer").style.display = "none";
-        var thankYouContainer = document.getElementById("thankYouContainer");
-        thankYouContainer.style.display = "block";
-        setTimeout(function() {
-          document.querySelector(".infinity").classList.add("spinning");
-          document.querySelector(".heart-overlay").classList.add("beating");
-        }, 100);
-        
-        // Create floating hearts
-        createFloatingHearts();
-      });
 
-      // No button - makes Yes button bigger and shows pleading images
-      document.getElementById("noButton").addEventListener("click", function() {
-        var yesButton = document.getElementById("yesButton");
-        var currentFontSize = parseInt(window.getComputedStyle(yesButton).fontSize);
-        yesButton.style.fontSize = currentFontSize + 10 + "px";
-        
-        var pleadingImage = document.getElementById("pleadingImage");
-        pleadingImage.src = currentImages[currentImageIndex];
-        pleadingImage.style.display = "block";
-        pleadingImage.classList.add("fadeIn");
-        currentImageIndex = (currentImageIndex + 1) % currentImages.length;
-        
-        var questions = selectedContent.pleadingQuestions;
-        var questionDiv = document.getElementById("valentineQuestion");
-        var currentIndex = questions.indexOf(questionDiv.textContent);
-        
-        if (currentIndex < questions.length - 1) {
-          questionDiv.textContent = questions[currentIndex + 1];
-        } else if (currentIndex === -1) {
-          questionDiv.textContent = questions[0];
+        function initializePage() {
+            const dateInfo = getDateInfo();
+            
+            // Set body class for theme
+            document.body.className = dateInfo.type;
+            
+            // Update content
+            document.getElementById('dateBadge').textContent = dateInfo.badge;
+            document.getElementById('emoji').textContent = dateInfo.emoji;
+            document.getElementById('title').textContent = dateInfo.title;
+            document.getElementById('nickname').textContent = dateInfo.nickname;
+            document.getElementById('message').textContent = dateInfo.message;
+            
+            // Show special birthday wishes if it's the day
+            if (dateInfo.showWishes) {
+                showBirthdayWishes();
+            }
+            
+            // Create floating balloons
+            createFloatingBalloons(dateInfo.balloons);
+            
+            // Update countdown if needed
+            if (dateInfo.upcoming) {
+                updateCountdown();
+                setInterval(updateCountdown, 1000);
+            }
         }
-      });
-      
-      // Create floating hearts effect
-      function createFloatingHearts() {
-        setInterval(function() {
-          var heart = document.createElement('div');
-          heart.className = 'floating-heart';
-          var emojis = ['💕', '💖', '💗', '💓', '💝', selectedContent.emoji];
-          heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-          heart.style.left = Math.random() * 100 + '%';
-          heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
-          heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
-          document.body.appendChild(heart);
-          
-          setTimeout(function() {
-            heart.remove();
-          }, 6000);
-        }, 300);
-      }
+
+        function showBirthdayWishes() {
+            const wishes = [
+                "🌟 May this year bring you endless happiness and unforgettable memories!",
+                "💖 You deserve all the love, joy, and cake in the world today!",
+                "🎊 Here's to another year of being absolutely wonderful!",
+                "🌸 May your dreams come true and your smile never fade!"
+            ];
+            
+            const container = document.createElement('div');
+            container.className = 'wishes-container';
+            
+            wishes.forEach((wish, index) => {
+                setTimeout(() => {
+                    const wishDiv = document.createElement('div');
+                    wishDiv.className = 'wish';
+                    wishDiv.textContent = wish;
+                    wishDiv.style.animation = 'fadeIn 0.8s ease-in';
+                    container.appendChild(wishDiv);
+                }, index * 500);
+            });
+            
+            document.getElementById('specialContent').appendChild(container);
+        }
+
+        function createFloatingBalloons(symbol) {
+            const balloonsContainer = document.getElementById('balloons');
+            
+            // Create confetti effect
+            setInterval(() => {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f093fb', '#feca57'][Math.floor(Math.random() * 5)];
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                balloonsContainer.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 3000);
+            }, 200);
+            
+            // Create floating balloons
+            setInterval(() => {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.textContent = symbol;
+                balloon.style.left = Math.random() * 100 + '%';
+                balloon.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                balloon.style.animationDelay = Math.random() * 2 + 's';
+                
+                balloonsContainer.appendChild(balloon);
+                
+                setTimeout(() => balloon.remove(), 10000);
+            }, 400);
+        }
+
+        function celebrate() {
+            const dateInfo = getDateInfo();
+            
+            // Show celebration message
+            const messages = [
+                '🎉 Hip Hip Hooray for Maya! 🎉',
+                '🎂 Make a wish, Ghuntudo! 🎂',
+                '🎈 You are loved and celebrated! 🎈',
+                '💖 Best birthday ever for the best person ever! 💖'
+            ];
+            
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            alert(randomMessage);
+            
+            // Create massive balloon/confetti burst
+            const balloonsContainer = document.getElementById('balloons');
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    // Balloons
+                    const balloon = document.createElement('div');
+                    balloon.className = 'balloon';
+                    balloon.textContent = dateInfo.balloons;
+                    balloon.style.left = (Math.random() * 100) + '%';
+                    balloon.style.top = '50%';
+                    balloon.style.fontSize = (Math.random() * 3 + 2) + 'rem';
+                    balloonsContainer.appendChild(balloon);
+                    
+                    // Confetti
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = (Math.random() * 100) + '%';
+                    confetti.style.top = '20%';
+                    confetti.style.background = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f093fb', '#feca57'][Math.floor(Math.random() * 5)];
+                    balloonsContainer.appendChild(confetti);
+                }, i * 30);
+            }
+        }
+
+        function updateCountdown() {
+            const now = new Date();
+            const birthday = new Date(now.getFullYear(), 4, 5, 0, 0, 0);
+            
+            if (now >= birthday) {
+                document.getElementById('countdown').textContent = '';
+                return;
+            }
+            
+            const diff = birthday - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('countdown').textContent = 
+                `🎂 Maya's Birthday in: ${days}d ${hours}h ${minutes}m ${seconds}s 🎂`;
+        }
+
+        // Initialize on load
+        initializePage();
+        
+        // Auto-refresh at midnight to show birthday content
+        setInterval(() => {
+            const now = new Date();
+            if (now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() === 0) {
+                location.reload();
+            }
+        }, 1000);
     </script>
-  </body>
+</body>
 </html>
