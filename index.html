@@ -14,10 +14,7 @@
         body {
             font-family: 'Georgia', serif;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
         }
@@ -30,11 +27,17 @@
         .container {
             text-align: center;
             z-index: 10;
-            padding: 50px;
+            padding: 50px 30px;
+            max-width: 1200px;
+            margin: 50px auto;
+        }
+
+        .hero-section {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 30px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 700px;
+            padding: 50px;
+            margin-bottom: 30px;
             animation: fadeIn 1s ease-in;
         }
 
@@ -115,6 +118,7 @@
             height: 100%;
             pointer-events: none;
             overflow: hidden;
+            z-index: 1;
         }
 
         .balloon {
@@ -188,38 +192,137 @@
             font-weight: bold;
         }
 
-        .wishes-container {
-            margin-top: 40px;
-            padding: 30px;
-            background: linear-gradient(135deg, #fff5f5 0%, #ffe5f0 100%);
+        /* Letter Section */
+        .letter-section {
+            background: rgba(255, 255, 255, 0.98);
             border-radius: 20px;
-            border: 3px solid #f093fb;
+            padding: 60px;
+            margin: 30px auto;
+            max-width: 900px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            animation: slideUp 1s ease-out 0.5s both;
         }
 
-        .wish {
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .letter-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #f093fb;
+        }
+
+        .letter-title {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .letter-subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .letter-content {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: #333;
+            text-align: justify;
+        }
+
+        .letter-content p {
+            margin-bottom: 25px;
+        }
+
+        .letter-signature {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #f093fb;
+            text-align: right;
+            font-style: italic;
+        }
+
+        .letter-signature .closing {
             font-size: 1.2rem;
-            color: #555;
-            margin: 15px 0;
-            padding: 15px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
         }
 
-        .cake-animation {
-            font-size: 5rem;
+        .letter-signature .name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .scroll-hint {
+            text-align: center;
             margin: 20px 0;
-            animation: cake-glow 2s ease-in-out infinite;
+            color: white;
+            font-size: 1.1rem;
+            animation: pulse 2s infinite;
         }
 
-        @keyframes cake-glow {
+        @keyframes pulse {
             0%, 100% {
-                filter: drop-shadow(0 0 5px #f093fb);
-                transform: scale(1);
+                opacity: 0.6;
             }
             50% {
-                filter: drop-shadow(0 0 20px #f5576c);
-                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        .read-letter-btn {
+            display: inline-block;
+            padding: 20px 50px;
+            margin: 30px 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        body.birthday-day .read-letter-btn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+        }
+
+        .read-letter-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .letter-section {
+                padding: 30px 20px;
+            }
+            .letter-title {
+                font-size: 1.8rem;
+            }
+            .hero-section {
+                padding: 30px 20px;
             }
         }
     </style>
@@ -228,16 +331,225 @@
     <div class="balloons" id="balloons"></div>
     
     <div class="container">
-        <div class="date-badge" id="dateBadge"></div>
-        <div class="emoji" id="emoji"></div>
-        <h1 id="title"></h1>
-        <div class="nickname" id="nickname"></div>
-        <p class="message" id="message"></p>
-        
-        <div id="specialContent"></div>
-        
-        <button class="button" onclick="celebrate()">🎉 Celebrate! 🎉</button>
-        <div class="countdown" id="countdown"></div>
+        <div class="hero-section">
+            <div class="date-badge" id="dateBadge"></div>
+            <div class="emoji" id="emoji"></div>
+            <h1 id="title"></h1>
+            <div class="nickname" id="nickname"></div>
+            <p class="message" id="message"></p>
+            
+            <button class="button" onclick="celebrate()">🎉 Celebrate! 🎉</button>
+            <button class="read-letter-btn" onclick="scrollToLetter()">💌 Read Your Special Letter 💌</button>
+            <div class="countdown" id="countdown"></div>
+        </div>
+
+        <div class="scroll-hint" id="scrollHint">
+            ↓ Scroll down to read your heartfelt birthday letter ↓
+        </div>
+
+        <!-- Birthday Letter Section -->
+        <div class="letter-section" id="letterSection">
+            <div class="letter-header">
+                <div class="letter-title">A Letter For You 💕</div>
+                <div class="letter-subtitle">From My Heart to Yours</div>
+            </div>
+            
+            <div class="letter-content">
+                <p><strong>My dearest Maya, my sweet Ghuntudo,</strong></p>
+
+                <p>Today is the day the world became a better place. May 5th – a date that will forever hold a special meaning in my heart because it's the day you were born. As I sit here thinking about everything I want to say to you, I realize that words alone can never truly capture how much you mean to me, but I'll try my best to express what's in my heart.</p>
+
+                <p>Timro birthday ma, I want you to know that you are the most precious person in my life. Timi nai mero duniya ho, mero khushi ko source, and the reason I smile even on the hardest days. Every moment spent with you feels like a gift, and I'm so grateful that life brought us together.</p>
+
+                <p>From the first time I saw you, I knew there was something special about you. Timro smile le mero mann choeyo, your laughter became my favorite sound, and your presence became my peace. You have this incredible ability to make everything better just by being there. Whether I'm happy or sad, stressed or relaxed, timro saath ma everything feels right.</p>
+
+                <p>Maya, you are beautiful in every possible way. Not just timro beauty that everyone can see, but the beauty of your soul, your kindness, your caring nature, and the way you love people around you. Timro man yetro ramro cha ki sometimes I wonder how I got so lucky to have you in my life.</p>
+
+                <p>I love the way you laugh – that genuine, heartfelt laugh that lights up the entire room. I love timro smile that can brighten even my darkest days. I love the way you care about others, always putting their needs before your own. I love your strength, your resilience, and the way you face every challenge with courage.</p>
+
+                <p>Ghuntudo, do you remember all those moments we've shared? Every conversation, every laugh, every quiet moment of understanding – they're all treasured in my heart. Timro saath ma bitaeko har pal mero lagi anmol cha. Those late-night talks where we shared our dreams and fears, those silly moments where we laughed until our stomachs hurt, those quiet moments where just being together was enough – I cherish them all.</p>
+
+                <p>You've taught me so much about life, love, and what it means to truly care for someone. Timile malai sikayou ki love is not just a feeling, it's a choice we make every single day. It's choosing to be there for someone through thick and thin, through good times and bad, through laughter and tears.</p>
+
+                <p>On your birthday, I want to thank you for being you. Thank you for your patience when I'm being difficult. Thank you for your understanding when I'm not at my best. Thank you for your love that never wavers. Thank you timro support, timro care, and timro unconditional love that has changed my life completely.</p>
+
+                <p>Maya, you are my best friend, my confidant, my partner, and my everything. Timi nai mero pehilo socha ho when I wake up and mero aakhiri socha before I sleep. You're the person I want to share every moment with – the good, the bad, the exciting, and the mundane.</p>
+
+                <p>I admire your determination and your drive to achieve your dreams. Timro sapana haru pura hos, timro goals achieve hos – this is my wish not just today but every single day. You deserve all the success, all the happiness, and all the beautiful things life has to offer.</p>
+
+                <p>Remember when you told me about your childhood dreams? About the things you wanted to do, the places you wanted to visit, the person you wanted to become? I want you to know that I believe in every single one of those dreams. Timi sakchau, Maya. You can achieve anything you set your mind to because you have the strength, the intelligence, and the heart to make it happen.</p>
+
+                <p>Sometimes I catch myself just watching you – the way you concentrate when you're working on something important, the way timro eyes light up when you talk about things you're passionate about, the way you bite your lip when you're thinking hard about something. These little things that make you uniquely you – I love them all.</p>
+
+                <p>Ghuntudo, life isn't always easy, and I know there have been times when you've struggled, when you've doubted yourself, when you've felt overwhelmed. But I want you to know that even in those moments, you've been incredible. Timro strength le malai inspire garcha. The way you pick yourself up and keep going, the way you face your fears and overcome obstacles – it's truly admirable.</p>
+
+                <p>You are so much stronger than you think you are. Jaba timi afailai weak sochanchau, remember that you've overcome so much already. Every challenge you've faced, every difficulty you've conquered – they've all made you the amazing person you are today.</p>
+
+                <p>On this special day, I want you to forget about all your worries and just enjoy being celebrated. Today is about you, about honoring the incredible person you are, about recognizing all that you've accomplished and all that you mean to the people who love you.</p>
+
+                <p>Maya, timro haso bina mero din adhuro lagcha. Your voice is the melody I never get tired of hearing. Your presence is the comfort I always seek. Timi mero lagi sab kei ho – my happiness, my peace, my home.</p>
+
+                <p>I love the way you get excited about small things – a good meal, a beautiful sunset, a funny video. I love timro ability to find joy in simple moments. You've taught me to appreciate life more, to notice the beauty around us, to be grateful for what we have.</p>
+
+                <p>Do you know what I love most about you? It's your heart. Timro man yetro dherai ramro cha, so full of love and compassion. The way you care about people, the way you help others without expecting anything in return, the way you make everyone around you feel valued and loved – it's beautiful.</p>
+
+                <p>I've watched you grow, change, and become even more amazing with each passing day. Har din timi aajai ramro banchau, and I'm so proud of the person you're becoming. Your journey is inspiring, and I feel honored to be a part of it.</p>
+
+                <p>Remember all those times when things didn't go as planned? When life threw unexpected challenges your way? You handled them with such grace and maturity. Timro patience, timro understanding, timro positive attitude – they've helped you through so much, and they'll continue to guide you towards great things.</p>
+
+                <p>Maya, I want you to know that you're never alone. Jaha pani timi jaanchhau, jasari pani feel garchau, remember that I'm always here for you. In your moments of joy, I'm here to celebrate with you. In your moments of sadness, I'm here to comfort you. In your moments of doubt, I'm here to believe in you.</p>
+
+                <p>Your dreams matter to me because you matter to me. Timro khushi mero khushi ho, timro dukha mero dukha. Whatever you need, whatever you want, whatever makes you happy – I want to help you achieve it.</p>
+
+                <p>I love how passionate you are about things that matter to you. Whether it's timro studies, timro hobbies, or timro relationships – you give everything your full attention and effort. This dedication is something I deeply admire about you.</p>
+
+                <p>Ghuntudo, you make me want to be a better person. Because of you, I try harder, care deeper, and love more. Timile malai sikayou ki real love is selfless, patient, and kind. You've shown me what it means to truly care for someone beyond yourself.</p>
+
+                <p>On your birthday, I wish I could give you the world because that's what you deserve. But since I can't wrap up the world and put a bow on it, I'm giving you something else – my promise. My promise to always be there for you, to support your dreams, to celebrate your victories, to comfort you in defeat, to laugh with you, to cry with you, and to love you unconditionally.</p>
+
+                <p>Every year on this day, I'm reminded of how blessed I am to have you in my life. Timro birthday is not just timro celebration, it's my celebration too – a celebration of the day my favorite person was born, the day the universe gave me this incredible gift.</p>
+
+                <p>Maya, you are more than I ever knew I needed. Before you, I didn't know what I was missing. But now, I can't imagine my life without you. Timi bina mero jindagi adhuro cha. You complete me in ways I never thought possible.</p>
+
+                <p>I love our inside jokes, our shared memories, our little traditions. I love how we can communicate with just a look, how we understand each other without words. Timro saath ma, I feel completely myself – no pretenses, no masks, just real and honest.</p>
+
+                <p>You've seen me at my best and at my worst, and you've loved me through it all. That kind of love is rare and precious. Timro yesto unconditional love ko lagi, I am forever grateful. It gives me strength, comfort, and the courage to face anything life throws at me.</p>
+
+                <p>I think about our future together, and it fills me with excitement and hope. I imagine all the adventures we'll have, all the memories we'll create, all the milestones we'll celebrate. Timro saath ma bitako har din ek naya adventure ho, and I'm looking forward to so many more.</p>
+
+                <p>Maya, you are talented, intelligent, beautiful, kind, funny, and so much more. Sometimes I wonder if you truly know how amazing you are. Timi afailai underestimate garchau, but I see you for who you really are – an extraordinary person capable of extraordinary things.</p>
+
+                <p>Your birthday is a reminder to celebrate not just the day you were born, but the person you've become. Every year, you grow wiser, stronger, and more beautiful. Timro growth, timro development, timro journey – I'm honored to witness it all.</p>
+
+                <p>I love the little quirks that make you unique. The way you scrunch your nose when you're confused, the way you talk to yourself when you're figuring something out, the way you get completely absorbed in things you enjoy. These little details that others might not notice – I treasure them.</p>
+
+                <p>Ghuntudo, you have such a good heart. Timro kindness knows no bounds. I've seen you go out of your way to help others, to make someone smile, to ease someone's burden. Your empathy and compassion make the world a better place.</p>
+
+                <p>On this special day, I want you to feel as loved as you make others feel. I want you to feel as special as you are. I want you to realize how much you're valued, appreciated, and cherished.</p>
+
+                <p>Life is full of ups and downs, twists and turns. But with you by my side, I know we can handle anything. Timro support le malai strong banaidiecha. Your belief in me has helped me believe in myself. Your love has made me a better person.</p>
+
+                <p>Maya, you inspire me every single day. The way you handle responsibilities, the way you manage your time, the way you balance different aspects of your life – it's impressive. Timi truly amazing chau, and I want you to recognize that.</p>
+
+                <p>I love how you make ordinary moments special. A simple walk becomes an adventure with you. A regular meal becomes a feast when we share it. A quiet evening becomes precious when we spend it together. Timro saath ma, everything is better.</p>
+
+                <p>You have dreams and aspirations, and I want to see you achieve every single one of them. Whatever you want to become, wherever you want to go, whatever you want to do – I'll be your biggest cheerleader. Timro sapana pura hos, timro ichha pura hos – this is my constant prayer.</p>
+
+                <p>Remember that time when you were worried about something and thought you couldn't do it? But you did it anyway, and you did it brilliantly. That's who you are, Maya – someone who rises to challenges, who doesn't give up, who keeps pushing forward even when things are tough.</p>
+
+                <p>Your strength amazes me. Not just physical strength, but emotional and mental strength too. Timro inner strength le malai impressed garcha. You've faced difficult situations with such courage and grace. You've overcome obstacles that would have broken others. And through it all, you've remained kind and compassionate.</p>
+
+                <p>I love learning from you. Every conversation with you teaches me something new. Timro perspective, timro insights, timro wisdom – they've enriched my life in countless ways. You make me think, you challenge my assumptions, you help me grow.</p>
+
+                <p>Maya, your laughter is my favorite music. The sound of your happiness brings me more joy than anything else in this world. When you're happy, I'm happy. Timro khushi nai mero khushi ho. Your smile is worth more than any treasure.</p>
+
+                <p>I appreciate everything you do, even the small things that might go unnoticed. The way you check on me, the way you remember little details, the way you show you care in a hundred different ways – I notice it all, and I'm grateful for it all.</p>
+
+                <p>You make me believe in love – real, honest, deep love. Before you, love was just a concept. But with you, it's real, tangible, beautiful. Timile malai love ko sahi meaning sikayou. You've shown me that love is not just romance and grand gestures; it's also in the everyday moments, in the quiet support, in the simple act of being there.</p>
+
+                <p>On your birthday, I want to make you feel as special as you make me feel every day. I want to shower you with love, appreciation, and happiness. I want this day to be as wonderful as you are.</p>
+
+                <p>Ghuntudo, you are my safe place. When the world gets too loud, too chaotic, too overwhelming, I find peace in you. Timro arms ma, timro saath ma, everything feels okay. You are my calm in the storm, my light in the darkness.</p>
+
+                <p>I love how we can be silly together, how we can be serious together, how we can be anything and everything together. With you, I don't have to pretend or hold back. Timi sanga ma real ma hunsakchu. You accept me for who I am, flaws and all.</p>
+
+                <p>Your birthday is a celebration of you – your life, your impact, your presence in this world. You matter so much to so many people, but especially to me. Timro existence le mero life ma yetro farak pareko cha. You've changed my world in the best possible way.</p>
+
+                <p>I want you to know that you're enough. More than enough. You don't need to change or be different. Timi jasto chau, perfect chau. Your imperfections make you human, relatable, real. And I love every bit of it.</p>
+
+                <p>Maya, you have so much potential, so much to offer to the world. Your talents, your skills, your ideas – they deserve to be shared. Don't ever doubt yourself. Timi socheko bhanda dherai capable chau. You can achieve things beyond your wildest dreams.</p>
+
+                <p>I love the memories we've created together. Each one is a precious gem that I hold dear in my heart. And I'm excited about all the memories we'll create in the future. With you, every moment is worth remembering.</p>
+
+                <p>Your kindness extends to everyone around you, but I'm selfish enough to treasure the special kind of love and care you reserve for me. The way you understand me, the way you know what I need before I say it, the way you make me feel valued – it's something I'll never take for granted.</p>
+
+                <p>Ghuntudo, you deserve the world. You deserve every happiness, every success, every beautiful thing life has to offer. And on this special day, I wish for all your dreams to come true. May this year bring you everything you've been hoping for.</p>
+
+                <p>I love how passionate you get about things you believe in. Whether it's a cause you support, a goal you're pursuing, or a belief you hold – your conviction is inspiring. Timro passion le malai motivate garcha to care more deeply about things that matter.</p>
+
+                <p>You are beautiful inside and out. Timro physical beauty is obvious to anyone who sees you, but your inner beauty – that's what truly makes you special. Your beautiful soul shines through in everything you do.</p>
+
+                <p>On your birthday, I celebrate not just the day you were born, but also every day you've lived since then. Every challenge you've overcome, every lesson you've learned, every person you've touched with your kindness – all of it has led to the amazing person you are today.</p>
+
+                <p>Maya, I promise to always cherish you, to always respect you, to always support you. Timro saath sadhai dincchu. In good times and bad, in sickness and health, in joy and sorrow – I'll be there. This is not just a promise for today; it's a promise for always.</p>
+
+                <p>You make me laugh like no one else can. Timro sense of humor, timro wit, timro ability to find fun in any situation – I love it all. Life with you is never boring. You bring joy and laughter wherever you go.</p>
+
+                <p>I admire your intelligence and your thirst for knowledge. You're always learning, always growing, always seeking to understand more. Timro curiosity, timro eagerness to learn – it pushes me to be better too.</p>
+
+                <p>Your birthday reminds me to express my gratitude for having you in my life. Thank you for choosing me, for loving me, for accepting me. Thank you timro patience, timro understanding, timro unconditional support. Thank you for being my partner, my friend, my everything.</p>
+
+                <p>Maya, you are a gift to this world. Your presence makes a difference. The lives you touch, the smiles you create, the love you spread – it all matters. Timro existence le yetro dherai farak parcha. Never forget that.</p>
+
+                <p>I love how you care about your family and friends. The way you maintain relationships, the way you show up for people you love – it speaks volumes about your character. You're a daughter, a friend, a person anyone would be lucky to have in their life.</p>
+
+                <p>On this special day, I want you to feel celebrated, loved, and appreciated. You deserve to be treated like the queen you are. Aja timro din ho, and I want it to be perfect for you.</p>
+
+                <p>Ghuntudo, you have taught me so much about patience, kindness, and love. Before you, I didn't understand what it meant to truly care for someone beyond myself. But you've shown me through your actions, your words, and your love.</p>
+
+                <p>I love our future together – the one we're building day by day, moment by moment. I love that we're on this journey together, supporting each other, growing together, creating a life that's ours.</p>
+
+                <p>Your smile can light up the darkest room. Timro smile le sabai ko din ramro banaidicha. It's infectious, genuine, and absolutely beautiful. Keep smiling, Maya, because the world needs your light.</p>
+
+                <p>I appreciate your honesty and your authenticity. You don't pretend to be someone you're not. Timi real chau, genuine chau, and that's refreshing. In a world full of pretense, you're a breath of fresh air.</p>
+
+                <p>Maya, you are my favorite person. Talking to you is my favorite activity. Spending time with you is my favorite way to spend time. Making you happy is my favorite goal. Everything about you and everything related to you – it's all my favorite.</p>
+
+                <p>On your birthday, I wish you health, happiness, and success. I wish timro har sapana pura hos. I wish for you to achieve everything you've set out to do. I wish for you to be as happy as you make others.</p>
+
+                <p>You are strong, brave, and resilient. Timile jati hardship face gareko chau, jati challenges overcome gareko chau – it's incredible. You're a warrior, and I'm in awe of your strength.</p>
+
+                <p>I love the way you love. It's pure, genuine, and deep. Timro love selfless cha, patient cha, kind cha. You love with your whole heart, and that's a beautiful thing.</p>
+
+                <p>Ghuntudo, you are one of a kind. There's no one else like you in this world. Timi unique chau, special chau, and irreplaceable chau. Don't ever forget how valuable you are.</p>
+
+                <p>Your birthday is a reminder of how lucky I am. Lucky to know you, lucky to love you, lucky to be loved by you. Timro love paune ma ma dherai lucky chu. It's the greatest gift I've ever received.</p>
+
+                <p>Maya, I want you to know that I see you – all of you. I see your strengths and your weaknesses, your joys and your fears, your dreams and your doubts. And I love all of it. I love all of you, completely and unconditionally.</p>
+
+                <p>You make me want to be the best version of myself. Because of you, I strive to be kinder, more patient, more understanding. Timro influence le malai better person banaeko cha.</p>
+
+                <p>I love how we can talk about anything and everything. From deep philosophical discussions to silly random thoughts – every conversation with you is meaningful. Timro saath ma, I never run out of things to say.</p>
+
+                <p>On this special day, I want you to take a moment to appreciate yourself. Look at how far you've come, how much you've grown, how much you've achieved. Be proud of yourself, Maya, because I'm proud of you.</p>
+
+                <p>You have touched my life in ways you can't imagine. Timro presence le mero life completely change gareko cha. You've made me happier, better, more complete. For that, I am eternally grateful.</p>
+
+                <p>Your birthday is not just about celebrating another year of your life; it's about celebrating the beautiful person you are. It's about honoring your journey, your growth, your impact on the world.</p>
+
+                <p>Maya, I love you more than words can express. Timro lagi mero maya shabda ma byakta garna garo cha. It's deep, it's real, it's forever. You are my heart, my soul, my everything.</p>
+
+                <p>I look forward to spending many more birthdays with you, celebrating you, loving you, making you feel special. Because you are special, and you deserve to be reminded of that not just on your birthday, but every single day.</p>
+
+                <p>Ghuntudo, as you blow out the candles on your birthday cake, know that my wish for you is simple – I wish for your happiness. I wish timro face ma sadhai smile rahos. I wish for your life to be filled with love, laughter, and beautiful moments.</p>
+
+                <p>You are a blessing in my life. Thank you for being you. Thank you for existing. Thank you for allowing me to love you and be loved by you.</p>
+
+                <p>Happy Birthday, Maya! May this year be your best one yet. May all your wishes come true. May you continue to grow, shine, and inspire everyone around you.</p>
+
+                <p>I love you today, tomorrow, and always. Timro lagi mero maya sadhai kai lagi ho.</p>
+
+                <p>Timi mero sab kei ho, Maya. My world, my heart, my home.</p>
+
+                <p>Here's to you, to us, to our beautiful journey together. Happy Birthday, my love! 🎂💖</p>
+
+                <p>Sano rahar cha bhane, timi lai pani tha cha – just say the word and I'll do anything to make you smile. Today and every day, timro khushi nai mero priority ho.</p>
+
+                <p>You mean everything to me, Ghuntudo. Everything.</p>
+
+                <p>Every day with you is a gift. Even the ordinary days, the routine days, the nothing-special days – they're all gifts because I get to spend them with you. Timro saath ma bitako har din precious cha.</p>
+
+                <p><strong>I love you more than these thousand lines could ever express. Timro lagi mero maya infinite cha.</strong></p>
+
+                <p><strong>Janam din ko dherei dherei maya ra shubhakamana, mero pyaro Ghuntudo! ❤️✨</strong></p>
+            </div>
+
+            <div class="letter-signature">
+                <div class="closing">Forever and always,</div>
+                <div class="name">Yours completely 💕</div>
+                <div style="margin-top: 20px; font-size: 1.1rem;">Here's to 365 more days of loving you! 🥂✨</div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -250,27 +562,27 @@
             if (month === 4 && day === 5) {
                 return {
                     type: 'birthday-day',
-                    badge: 'May 5th - Special Day!',
+                    badge: 'May 5th - Your Special Day!',
                     emoji: '🎂',
                     title: 'Happy Birthday Maya! 🎉',
                     nickname: '(aka Ghuntudo 💕)',
                     message: 'Today is YOUR day! A day to celebrate the amazing person you are, the joy you bring to everyone around you, and all the wonderful moments yet to come. You make the world brighter just by being in it!',
                     balloons: '🎈',
-                    showWishes: true
+                    showLetter: true
                 };
             }
             // Before birthday
             else if (month < 4 || (month === 4 && day < 5)) {
-                const birthday = new Date(now.getFullYear(), 4, 5);
                 return {
                     type: 'valentine-day',
                     badge: 'Coming Soon',
                     emoji: '🎁',
                     title: 'Maya\'s Birthday is Coming!',
-                    nickname: '(Mero Ghuntudo 💝)',
+                    nickname: '(our Ghuntudo 💝)',
                     message: 'Get ready for a special celebration! Something amazing is just around the corner...',
                     balloons: '🎈',
-                    upcoming: true
+                    upcoming: true,
+                    showLetter: false
                 };
             }
             // After birthday
@@ -282,7 +594,8 @@
                     title: 'Hope You Had an Amazing Birthday, Maya!',
                     nickname: '(sweet Ghuntudo 💕)',
                     message: 'Every day with you is special, but May 5th will always be extra magical. Here\'s to all the joy and love you deserve, today and every day!',
-                    balloons: '💝'
+                    balloons: '💝',
+                    showLetter: true
                 };
             }
         }
@@ -300,9 +613,11 @@
             document.getElementById('nickname').textContent = dateInfo.nickname;
             document.getElementById('message').textContent = dateInfo.message;
             
-            // Show special birthday wishes if it's the day
-            if (dateInfo.showWishes) {
-                showBirthdayWishes();
+            // Show or hide letter section
+            if (!dateInfo.showLetter) {
+                document.getElementById('letterSection').style.display = 'none';
+                document.getElementById('scrollHint').style.display = 'none';
+                document.querySelector('.read-letter-btn').style.display = 'none';
             }
             
             // Create floating balloons
@@ -315,28 +630,8 @@
             }
         }
 
-        function showBirthdayWishes() {
-            const wishes = [
-                "🌟 May this year bring you endless happiness and unforgettable memories!",
-                "💖 You deserve all the love, joy, and cake in the world today!",
-                "🎊 Here's to another year of being absolutely wonderful!",
-                "🌸 May your dreams come true and your smile never fade!"
-            ];
-            
-            const container = document.createElement('div');
-            container.className = 'wishes-container';
-            
-            wishes.forEach((wish, index) => {
-                setTimeout(() => {
-                    const wishDiv = document.createElement('div');
-                    wishDiv.className = 'wish';
-                    wishDiv.textContent = wish;
-                    wishDiv.style.animation = 'fadeIn 0.8s ease-in';
-                    container.appendChild(wishDiv);
-                }, index * 500);
-            });
-            
-            document.getElementById('specialContent').appendChild(container);
+        function scrollToLetter() {
+            document.getElementById('letterSection').scrollIntoView({ behavior: 'smooth' });
         }
 
         function createFloatingBalloons(symbol) {
